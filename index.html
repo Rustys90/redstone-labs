@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Redstone Labs — From concept to launch</title>
   <meta name="description" content="Redstone Labs is a studio building software across different markets. Explore our portfolio: SkillForge and Flylio.">
+  <link rel="canonical" href="https://redstone-labs.vercel.app/">
   <link rel="icon" type="image/png" href="/assets/mark.png">
   <link rel="stylesheet" href="/styles/tokens.css">
   <link rel="stylesheet" href="/styles/layout.css">
@@ -14,16 +15,74 @@
   <meta property="og:type" content="website">
   <meta property="og:title" content="Redstone Labs — From concept to launch">
   <meta property="og:description" content="Redstone Labs is a studio building software across different markets. Explore our portfolio: SkillForge and Flylio.">
-  <meta property="og:image" content="https://redstonelabs.com/assets/og-image.jpg">
-  <meta property="og:url" content="https://redstonelabs.com/">
+  <meta property="og:image" content="https://redstone-labs.vercel.app/assets/og-image.jpg">
+  <meta property="og:url" content="https://redstone-labs.vercel.app/">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Redstone Labs — From concept to launch">
   <meta name="twitter:description" content="Redstone Labs is a studio building software across different markets. Explore our portfolio: SkillForge and Flylio.">
-  <meta name="twitter:image" content="https://redstonelabs.com/assets/og-image.jpg">
-  <!-- auto-deploy verification -->
+  <meta name="twitter:image" content="https://redstone-labs.vercel.app/assets/og-image.jpg">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://redstone-labs.vercel.app/#organization",
+        "name": "Redstone Labs",
+        "url": "https://redstone-labs.vercel.app/",
+        "logo": "https://redstone-labs.vercel.app/assets/mark.png",
+        "email": "redstonelabssupport@gmail.com",
+        "description": "Redstone Labs is an independent software studio building and shipping products across different markets."
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://redstone-labs.vercel.app/#website",
+        "url": "https://redstone-labs.vercel.app/",
+        "name": "Redstone Labs",
+        "publisher": { "@id": "https://redstone-labs.vercel.app/#organization" }
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
-  <div id="root"></div>  <script src="/vendor-react.js"></script>
+  <div id="root">
+    <div class="ssr-fallback">
+      <header>
+        <a href="/">Redstone Labs</a>
+        <nav aria-label="Primary">
+          <a href="/">Home</a>
+          <a href="/portfolio.html">Portfolio</a>
+          <a href="/about.html">About</a>
+          <a href="/contact.html">Contact</a>
+        </nav>
+      </header>
+      <main>
+        <h1>From concept to launch — built by Redstone Labs.</h1>
+        <p>A studio building software across different markets — not tied to one category, just to shipping fast.</p>
+        <h2>Selected work</h2>
+        <ul>
+          <li><strong>SkillForge</strong> — The registry for AI agent skills. <a href="https://skillforge-jet-chi.vercel.app/">Visit SkillForge</a></li>
+          <li><strong>Flylio</strong> — Flight search, rebuilt around how people actually book travel. <a href="https://flylio.netlify.app/">Visit Flylio</a></li>
+        </ul>
+        <h2>Questions, answered.</h2>
+        <h3>What is Redstone Labs?</h3>
+        <p>Redstone Labs is an independent software studio that builds and ships products across different markets. Instead of betting everything on one product, the studio goes where the opportunity is — designing, building, and launching real software quickly, then letting the work speak for itself.</p>
+        <h3>What has Redstone Labs built?</h3>
+        <p>So far Redstone Labs has shipped two products: SkillForge, a registry for AI agent skills, and Flylio, a flight search and booking interface built on Duffel's flight infrastructure. Both were designed and built in-house, going from concept to live, working products.</p>
+        <h3>How can I contact Redstone Labs?</h3>
+        <p>For partnerships, investment, press, or anything else, email <a href="mailto:redstonelabssupport@gmail.com">redstonelabssupport@gmail.com</a> or use the <a href="/contact.html">contact page</a>. Every message is read by the studio, and partnership and investment inquiries get a personal reply within a few business days.</p>
+        <p><a href="/contact.html">Get in touch</a></p>
+      </main>
+      <footer>
+        <p>© 2026 Redstone Labs.</p>
+        <p><a href="mailto:redstonelabssupport@gmail.com">redstonelabssupport@gmail.com</a></p>
+        <p>Last updated: September 2026.</p>
+      </footer>
+    </div>
+  </div>
+  <script src="/vendor-react.js"></script>
   <script>
     window.require = function (name) {
       if (name === 'react') return window.React;

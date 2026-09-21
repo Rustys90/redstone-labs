@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Portfolio — Redstone Labs</title>
   <meta name="description" content="SkillForge and Flylio — the products built by Redstone Labs.">
+  <link rel="canonical" href="https://redstone-labs.vercel.app/portfolio.html">
   <link rel="icon" type="image/png" href="/assets/mark.png">
   <link rel="stylesheet" href="/styles/tokens.css">
   <link rel="stylesheet" href="/styles/layout.css">
@@ -15,15 +16,76 @@
   <meta property="og:type" content="website">
   <meta property="og:title" content="Portfolio — Redstone Labs">
   <meta property="og:description" content="SkillForge and Flylio — the products built by Redstone Labs.">
-  <meta property="og:image" content="https://redstonelabs.com/assets/og-image.jpg">
-  <meta property="og:url" content="https://redstonelabs.com/portfolio.html">
+  <meta property="og:image" content="https://redstone-labs.vercel.app/assets/og-image.jpg">
+  <meta property="og:url" content="https://redstone-labs.vercel.app/portfolio.html">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Portfolio — Redstone Labs">
   <meta name="twitter:description" content="SkillForge and Flylio — the products built by Redstone Labs.">
-  <meta name="twitter:image" content="https://redstonelabs.com/assets/og-image.jpg">
+  <meta name="twitter:image" content="https://redstone-labs.vercel.app/assets/og-image.jpg">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://redstone-labs.vercel.app/#organization",
+        "name": "Redstone Labs",
+        "url": "https://redstone-labs.vercel.app/",
+        "logo": "https://redstone-labs.vercel.app/assets/mark.png",
+        "email": "redstonelabssupport@gmail.com",
+        "description": "Redstone Labs is an independent software studio building and shipping products across different markets."
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://redstone-labs.vercel.app/#website",
+        "url": "https://redstone-labs.vercel.app/",
+        "name": "Redstone Labs",
+        "publisher": { "@id": "https://redstone-labs.vercel.app/#organization" }
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
-  <div id="root"></div>  <script src="/vendor-react.js"></script>
+  <div id="root">
+    <div class="ssr-fallback">
+      <header>
+        <a href="/">Redstone Labs</a>
+        <nav aria-label="Primary">
+          <a href="/">Home</a>
+          <a href="/portfolio.html">Portfolio</a>
+          <a href="/about.html">About</a>
+          <a href="/contact.html">Contact</a>
+        </nav>
+      </header>
+      <main>
+        <p>Portfolio</p>
+        <h1>What we've built so far.</h1>
+        <p>Two products, two different markets. Same approach: build it properly, ship it, see what happens.</p>
+        <article>
+          <p>Flagship Product</p>
+          <h2>SkillForge</h2>
+          <p>The registry for AI agent skills.</p>
+          <p>As AI agents become part of everyday workflows, the instructions that make them useful — SKILL.md files — are scattered across GitHub with no central place to find them. SkillForge centralizes discovery of agent skills.</p>
+          <p><a href="https://skillforge-jet-chi.vercel.app/">Visit SkillForge</a></p>
+        </article>
+        <article>
+          <p>In Development</p>
+          <h2>Flylio</h2>
+          <p>Flight search, rebuilt around how people actually book travel.</p>
+          <p>Flylio is our exploration into travel — a flight search and booking interface built on Duffel's flight infrastructure. We're using it to test a simpler, faster way to book flights.</p>
+          <p><a href="https://flylio.netlify.app/">Visit Flylio</a></p>
+        </article>
+      </main>
+      <footer>
+        <p>© 2026 Redstone Labs.</p>
+        <p><a href="mailto:redstonelabssupport@gmail.com">redstonelabssupport@gmail.com</a></p>
+        <p>Last updated: September 2026.</p>
+      </footer>
+    </div>
+  </div>
+  <script src="/vendor-react.js"></script>
   <script>
     window.require = function (name) {
       if (name === 'react') return window.React;

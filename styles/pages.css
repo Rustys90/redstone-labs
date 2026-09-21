@@ -655,3 +655,140 @@
   font-size: 0.95rem;
   color: var(--crimson);
 }
+
+/* ============================================
+   FAQ (home) — answer-engine friendly Q&A
+   ============================================ */
+
+.faq {
+  background: var(--paper);
+  padding: clamp(4rem, 10vw, 7rem) 0;
+  border-top: 1px solid var(--stone-line);
+}
+
+.faq__inner {
+  max-width: 760px;
+}
+
+.faq__title {
+  font-size: clamp(1.6rem, 3.4vw, 2.4rem);
+  margin: 0.75rem 0 2.5rem;
+}
+
+.faq__item {
+  border-top: 1px solid var(--stone-line);
+  padding: 1.75rem 0;
+}
+
+.faq__item:last-child {
+  border-bottom: 1px solid var(--stone-line);
+}
+
+.faq__q {
+  font-size: 1.15rem;
+  margin-bottom: 0.75rem;
+}
+
+.faq__a {
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.65;
+  max-width: 62ch;
+}
+
+/* ============================================
+   SSR FALLBACK — static content visible without JS
+   (replaced by React on load; read by crawlers)
+   ============================================ */
+
+.ssr-fallback {
+  max-width: var(--content-width);
+  margin-inline: auto;
+  padding: 6rem var(--gutter) 4rem;
+  font-family: var(--font-body);
+  color: var(--ink);
+}
+
+.ssr-fallback header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 4rem;
+}
+
+.ssr-fallback header > a {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  text-decoration: none;
+  color: inherit;
+}
+
+.ssr-fallback nav {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.ssr-fallback nav a {
+  text-decoration: none;
+  color: inherit;
+  font-size: 0.95rem;
+}
+
+.ssr-fallback main {
+  max-width: 720px;
+}
+
+.ssr-fallback h1 {
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+}
+
+.ssr-fallback h2 {
+  font-size: 1.5rem;
+  margin: 2.5rem 0 1rem;
+}
+
+.ssr-fallback h3 {
+  font-size: 1.15rem;
+  margin: 1.75rem 0 0.5rem;
+}
+
+.ssr-fallback p {
+  line-height: 1.65;
+  margin-bottom: 1rem;
+  color: var(--ink-soft);
+}
+
+.ssr-fallback ul {
+  padding-left: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.ssr-fallback li {
+  margin-bottom: 0.75rem;
+  line-height: 1.6;
+}
+
+.ssr-fallback article {
+  border-top: 1px solid var(--stone-line);
+  padding: 2rem 0;
+}
+
+.ssr-fallback footer {
+  margin-top: 5rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--stone-line);
+  font-size: 0.9rem;
+}
+
+.ssr-fallback footer p {
+  margin-bottom: 0.4rem;
+}
+
+.ssr-fallback a {
+  color: var(--crimson);
+}

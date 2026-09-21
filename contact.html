@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contact — Redstone Labs</title>
   <meta name="description" content="Get in touch with Redstone Labs for partnerships or investment.">
+  <link rel="canonical" href="https://redstone-labs.vercel.app/contact.html">
   <link rel="icon" type="image/png" href="/assets/mark.png">
   <link rel="stylesheet" href="/styles/tokens.css">
   <link rel="stylesheet" href="/styles/layout.css">
@@ -14,15 +15,62 @@
   <meta property="og:type" content="website">
   <meta property="og:title" content="Contact — Redstone Labs">
   <meta property="og:description" content="Get in touch with Redstone Labs for partnerships or investment.">
-  <meta property="og:image" content="https://redstonelabs.com/assets/og-image.jpg">
-  <meta property="og:url" content="https://redstonelabs.com/contact.html">
+  <meta property="og:image" content="https://redstone-labs.vercel.app/assets/og-image.jpg">
+  <meta property="og:url" content="https://redstone-labs.vercel.app/contact.html">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Contact — Redstone Labs">
   <meta name="twitter:description" content="Get in touch with Redstone Labs for partnerships or investment.">
-  <meta name="twitter:image" content="https://redstonelabs.com/assets/og-image.jpg">
+  <meta name="twitter:image" content="https://redstone-labs.vercel.app/assets/og-image.jpg">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://redstone-labs.vercel.app/#organization",
+        "name": "Redstone Labs",
+        "url": "https://redstone-labs.vercel.app/",
+        "logo": "https://redstone-labs.vercel.app/assets/mark.png",
+        "email": "redstonelabssupport@gmail.com",
+        "description": "Redstone Labs is an independent software studio building and shipping products across different markets."
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://redstone-labs.vercel.app/#website",
+        "url": "https://redstone-labs.vercel.app/",
+        "name": "Redstone Labs",
+        "publisher": { "@id": "https://redstone-labs.vercel.app/#organization" }
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
-  <div id="root"></div>  <script src="/vendor-react.js"></script>
+  <div id="root">
+    <div class="ssr-fallback">
+      <header>
+        <a href="/">Redstone Labs</a>
+        <nav aria-label="Primary">
+          <a href="/">Home</a>
+          <a href="/portfolio.html">Portfolio</a>
+          <a href="/about.html">About</a>
+          <a href="/contact.html">Contact</a>
+        </nav>
+      </header>
+      <main>
+        <h1>Let's talk.</h1>
+        <p>For partnerships, investment, or anything else — reach us directly.</p>
+        <p><a href="mailto:redstonelabssupport@gmail.com">redstonelabssupport@gmail.com</a></p>
+      </main>
+      <footer>
+        <p>© 2026 Redstone Labs.</p>
+        <p><a href="mailto:redstonelabssupport@gmail.com">redstonelabssupport@gmail.com</a></p>
+        <p>Last updated: September 2026.</p>
+      </footer>
+    </div>
+  </div>
+  <script src="/vendor-react.js"></script>
   <script>
     window.require = function (name) {
       if (name === 'react') return window.React;
