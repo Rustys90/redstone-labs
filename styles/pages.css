@@ -10,6 +10,10 @@
   justify-content: center;
   overflow: hidden;
   background: var(--ink);
+  /* clear the fixed nav overlay so the hero mark never tucks under it */
+  padding-top: clamp(6rem, 12vh, 9rem);
+  padding-bottom: 3rem;
+  box-sizing: border-box;
 }
 
 .hero__bg {
@@ -26,8 +30,8 @@
   inset: 0;
   background: linear-gradient(
     180deg,
-    rgba(0, 0, 0, 0.35) 0%,
-    rgba(0, 0, 0, 0.15) 35%,
+    rgba(0, 0, 0, 0.5) 0%,
+    rgba(0, 0, 0, 0.22) 35%,
     rgba(0, 0, 0, 0.55) 100%
   );
 }
