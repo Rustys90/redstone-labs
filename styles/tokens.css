@@ -1,0 +1,214 @@
+/* ============================================
+   REDSTONE LABS — Design Tokens
+   ============================================ */
+
+@font-face {
+  font-family: 'Brunson';
+  src: url('/fonts/Brunson.woff') format('woff');
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Satoshi';
+  src: url('/fonts/Satoshi-Regular.woff') format('woff');
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Satoshi';
+  src: url('/fonts/Satoshi-Medium.woff') format('woff');
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Satoshi';
+  src: url('/fonts/Satoshi-Bold.woff') format('woff');
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Acumin Pro';
+  src: url('/fonts/Acumin-Regular.woff') format('woff');
+  font-weight: 400;
+  font-display: swap;
+}
+
+:root {
+  /* Color */
+  --ink: #0C0C0C;
+  --ink-soft: #2A2624;
+  --paper: #FFFFFF;
+  --paper-warm: #FBF9F6;
+  --crimson: #DC2626;
+  --crimson-light: #F0483B;
+  --crimson-dark: #7A1F13;
+  --stone: #E8E5DE;
+  --stone-line: #DEDAD0;
+  --muted: #7A756E;
+
+  /* Type */
+  --font-display: 'Brunson', sans-serif;
+  --font-body: 'Satoshi', -apple-system, sans-serif;
+  --font-label: 'Acumin Pro', -apple-system, sans-serif;
+
+  /* Scale */
+  --step-0: 1rem;
+  --step-1: 1.25rem;
+  --step-2: 1.75rem;
+  --step-3: 2.5rem;
+  --step-4: 3.5rem;
+  --step-5: 5rem;
+
+  /* Layout */
+  --content-width: 1160px;
+  --gutter: clamp(1.5rem, 5vw, 4rem);
+  --radius: 4px;
+}
+
+* { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  animation: page-fade-in 0.5s ease both;
+}
+
+@keyframes page-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body { animation: none; }
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  margin: 0;
+  line-height: 1.05;
+  letter-spacing: 0.002em;
+}
+
+p {
+  margin: 0;
+  max-width: 62ch;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--crimson);
+  outline-offset: 3px;
+}
+
+img, video { max-width: 100%; display: block; }
+
+.kinetic-text {
+  will-change: transform, filter, opacity;
+  transition: filter 0.05s linear;
+}
+
+/* ============================================
+   MARQUEE
+   ============================================ */
+
+.marquee {
+  background: var(--ink);
+  overflow: hidden;
+  padding: 1.75rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.marquee__track {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 22s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee__track {
+    animation-duration: 60s;
+  }
+}
+
+.marquee__item {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3.5vw, 2.5rem);
+  color: var(--paper);
+  white-space: nowrap;
+  padding-inline: 1.5rem;
+}
+
+.marquee__dot {
+  color: var(--crimson);
+  margin-left: 1.5rem;
+  font-size: 0.8em;
+}
+
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.container {
+  max-width: var(--content-width);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.label {
+  font-family: var(--font-label);
+  font-size: 0.8rem;
+  letter-spacing: 0.14em;
+  color: var(--crimson);
+  font-weight: 400;
+}
+
+/* Shared animated-underline link style */
+.link-underline {
+  position: relative;
+  display: inline-block;
+  border-bottom: none !important;
+}
+
+.link-underline::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(1);
+  transform-origin: right;
+  transition: transform 0.35s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.link-underline:hover::after {
+  transform-origin: left;
+}

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio — Redstone Labs</title>
+  <meta name="description" content="SkillForge and Flylio — the products built by Redstone Labs.">
+  <link rel="icon" type="image/png" href="/assets/mark.png">
+  <link rel="stylesheet" href="/styles/tokens.css">
+  <link rel="stylesheet" href="/styles/layout.css">
+  <link rel="stylesheet" href="/styles/pages.css">
+
+  <!-- Open Graph / social sharing -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Portfolio — Redstone Labs">
+  <meta property="og:description" content="SkillForge and Flylio — the products built by Redstone Labs.">
+  <meta property="og:image" content="https://redstonelabs.com/assets/og-image.jpg">
+  <meta property="og:url" content="https://redstonelabs.com/portfolio.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Portfolio — Redstone Labs">
+  <meta name="twitter:description" content="SkillForge and Flylio — the products built by Redstone Labs.">
+  <meta name="twitter:image" content="https://redstonelabs.com/assets/og-image.jpg">
+</head>
+<body>
+  <div id="root"></div>  <script src="/vendor-react.js"></script>
+  <script>
+    window.require = function (name) {
+      if (name === 'react') return window.React;
+      if (name === 'react-dom' || name === 'react-dom/client') return window.ReactDOM;
+      throw new Error('Cannot resolve module: ' + name);
+    };
+  </script>
+
+  <script src="/bundle-portfolio.js"></script>
+</body>
+</html>
