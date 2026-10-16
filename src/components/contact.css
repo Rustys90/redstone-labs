@@ -1,0 +1,57 @@
+/* ------------------------------------------------------------------
+   Contact (§04): the giant email. Red underline that thickens on
+   hover; the address may wrap once on small screens but never
+   causes horizontal scroll.
+   ------------------------------------------------------------------ */
+
+.contact__line {
+  font-size: var(--text-lg);
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+  max-width: var(--measure);
+}
+
+.contact__email {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.75rem, 5vw, 4rem);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  color: var(--ink);
+  text-decoration-line: underline;
+  text-decoration-color: var(--red-500);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 8px;
+  overflow-wrap: anywhere; /* may wrap once on 390px, never overflows */
+}
+
+.contact__email:hover {
+  text-decoration-thickness: 5px;
+  text-decoration-color: var(--red-500);
+}
+
+.contact__email:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 6px;
+  text-decoration-thickness: 5px;
+}
+
+.contact__hint {
+  margin-top: 2rem;
+  color: var(--ink-2);
+  max-width: var(--measure);
+  line-height: 1.6;
+}
+
+@media (max-width: 639px) {
+  .contact__email {
+    /* 48px+ hit area on mobile, even when the address wraps */
+    min-height: 48px;
+    padding: 0.5rem 0;
+  }
+
+  .contact__line {
+    font-size: var(--text-base);
+  }
+}
