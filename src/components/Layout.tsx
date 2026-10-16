@@ -87,6 +87,17 @@ export default function Layout() {
               <li>
                 <a href="/sitemap.xml">Sitemap</a>
               </li>
+              <li>
+                <button
+                  type="button"
+                  className="footer-cookie-settings"
+                  onClick={() =>
+                    window.dispatchEvent(new Event("rl:open-cookies"))
+                  }
+                >
+                  Cookie settings
+                </button>
+              </li>
             </ul>
           </nav>
 
