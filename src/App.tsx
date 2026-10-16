@@ -1,6 +1,14 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from "./components/Layout";
 import Home from "./pages/Home";
+import About from "./pages/About";
+import Portfolio from "./pages/Portfolio";
+import Contact from "./pages/Contact";
+import Privacy from "./pages/legal/Privacy";
+import Terms from "./pages/legal/Terms";
+import Refund from "./pages/legal/Refund";
+import Cookies from "./pages/legal/Cookies";
+import DataDeletion from "./pages/DataDeletion";
 import PlaceholderPage from "./pages/PlaceholderPage";
 
 export default function App() {
@@ -9,18 +17,14 @@ export default function App() {
       <Routes>
         <Route element={<Layout />}>
           <Route index element={<Home />} />
-          {/* Pages owned by other workers — placeholder until they land. */}
-          <Route path="about" element={<PlaceholderPage title="About" />} />
-          <Route path="work" element={<PlaceholderPage title="Work" />} />
-          <Route path="contact" element={<PlaceholderPage title="Contact" />} />
-          <Route path="privacy" element={<PlaceholderPage title="Privacy policy" />} />
-          <Route path="terms" element={<PlaceholderPage title="Terms of service" />} />
-          <Route path="refund" element={<PlaceholderPage title="Refund policy" />} />
-          <Route path="cookies" element={<PlaceholderPage title="Cookie policy" />} />
-          <Route
-            path="data-deletion"
-            element={<PlaceholderPage title="Data deletion" />}
-          />
+          <Route path="about" element={<About />} />
+          <Route path="work" element={<Portfolio />} />
+          <Route path="contact" element={<Contact />} />
+          <Route path="privacy" element={<Privacy />} />
+          <Route path="terms" element={<Terms />} />
+          <Route path="refund" element={<Refund />} />
+          <Route path="cookies" element={<Cookies />} />
+          <Route path="data-deletion" element={<DataDeletion />} />
           <Route
             path="*"
             element={
