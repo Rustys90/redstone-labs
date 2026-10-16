@@ -129,6 +129,20 @@
   color: var(--ink);
 }
 
+.footer-cookie-settings {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--ink-dim);
+  font-size: 0.9375rem;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.footer-cookie-settings:hover {
+  color: var(--ink);
+}
+
 .footer-copy {
   color: var(--ink-dim);
   font-size: 0.8125rem;
