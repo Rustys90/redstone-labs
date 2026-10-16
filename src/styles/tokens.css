@@ -1,0 +1,152 @@
+/* ------------------------------------------------------------------
+   Redstone Labs — design tokens
+   THE canonical token file. All workers use these values verbatim.
+   ------------------------------------------------------------------ */
+
+:root {
+  /* Surfaces */
+  --void: #05070f; /* page background */
+  --abyss: #0a0f1e; /* section alt background */
+  --panel: #101828; /* card surface */
+
+  /* Hairlines */
+  --line: rgba(148, 163, 184, 0.16); /* hairline borders */
+
+  /* Text — contrast on --void: ~17:1 (ink), ~7.2:1 (ink-dim) */
+  --ink: #f2f5fa; /* primary text */
+  --ink-dim: #a8b3c7; /* secondary text */
+
+  /* Accents */
+  --volt: #8b7cff; /* electric violet — primary accent */
+  --pulse: #3ee0ff; /* electric cyan — secondary accent */
+  --ember: #ffb224; /* warm highlight, sparing use only */
+  --success: #34d399;
+
+  /* Type (Google Fonts, OFL licensed) */
+  --font-display: "Space Grotesk", "Inter", system-ui, -apple-system,
+    sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  /* Layout */
+  --max-width: 72rem;
+  --gutter: clamp(1.25rem, 4vw, 2.5rem);
+  --header-height: 4.25rem;
+  --radius: 0.875rem;
+}
+
+/* ------------------------------------------------------------------ */
+/* Base                                                                */
+/* ------------------------------------------------------------------ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--void);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  line-height: 1.12;
+  letter-spacing: -0.015em;
+  margin: 0 0 0.75rem;
+}
+
+p {
+  margin: 0 0 1rem;
+}
+
+a {
+  color: var(--pulse);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+img,
+svg,
+canvas {
+  display: block;
+  max-width: 100%;
+}
+
+::selection {
+  background: rgba(139, 124, 255, 0.35);
+  color: var(--ink);
+}
+
+/* ------------------------------------------------------------------ */
+/* Focus — 2px --pulse outline, always visible on keyboard nav         */
+/* ------------------------------------------------------------------ */
+
+:focus {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--pulse);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ------------------------------------------------------------------ */
+/* Skip link — the first tab stop on every page                        */
+/* ------------------------------------------------------------------ */
+
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 1rem;
+  z-index: 200;
+  padding: 0.625rem 1rem;
+  background: var(--panel);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 0.5rem;
+  font-weight: 600;
+  transition: top 0.15s ease;
+}
+
+.skip-link:focus-visible {
+  top: 0.75rem;
+  text-decoration: none;
+}
+
+/* ------------------------------------------------------------------ */
+/* Reduced motion — global kill switch                                 */
+/* ------------------------------------------------------------------ */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
