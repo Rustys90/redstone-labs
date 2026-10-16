@@ -1,0 +1,225 @@
+/* ------------------------------------------------------------------
+   Work — the Shipping Ledger (§01).
+   Full-width index table; rows invert on hover (ink bg, paper text,
+   red numeral). Mobile becomes stacked ledger blocks. Static: no
+   scroll reveals, hover inversion is instant per the direction.
+   ------------------------------------------------------------------ */
+
+.ledger {
+  border-top: var(--rule-red);
+}
+
+.ledger__head,
+.ledger__row {
+  display: grid;
+  grid-template-columns:
+    3.5rem
+    minmax(9rem, 12rem)
+    minmax(0, 1fr)
+    minmax(9rem, 13rem)
+    6.5rem
+    4.5rem;
+  gap: 1.5rem;
+  align-items: baseline;
+}
+
+.ledger__head {
+  padding: 0.875rem 1rem;
+  border-bottom: var(--rule);
+  color: var(--ink-2);
+}
+
+.ledger__item {
+  border-bottom: var(--rule);
+}
+
+.ledger__row {
+  width: 100%;
+  padding: 1.25rem 1rem;
+  color: inherit;
+  text-decoration: none; /* ledger rows opt out of the default link underline */
+  background: transparent;
+  border: 0;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.ledger__row--toggle {
+  appearance: none;
+}
+
+.ledger__row:hover {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.ledger__row:hover .ledger__folio {
+  color: var(--red-500);
+}
+
+.ledger__row:hover .ledger__afford {
+  text-decoration: underline;
+}
+
+.ledger__row:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: -2px;
+}
+
+.ledger__row:hover:focus-visible {
+  outline-color: var(--paper);
+}
+
+.ledger__folio {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--red-600); /* small-size red for the ledger numerals */
+  font-variant-numeric: tabular-nums;
+}
+
+.ledger__name {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  font-size: var(--text-lg);
+  line-height: 1.2;
+}
+
+.ledger__desc {
+  color: var(--ink-2);
+  font-size: var(--text-sm);
+  line-height: 1.5;
+}
+
+.ledger__row:hover .ledger__desc {
+  color: var(--paper);
+}
+
+.ledger__stack {
+  color: var(--ink-2);
+}
+
+.ledger__row:hover .ledger__stack {
+  color: var(--paper);
+}
+
+.ledger__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+}
+
+.ledger__status-square {
+  width: 0.625rem;
+  height: 0.625rem;
+  background: var(--red-500);
+  flex: none;
+}
+
+.ledger__afford {
+  text-align: right;
+  color: var(--ink-2);
+}
+
+.ledger__row:hover .ledger__afford {
+  color: var(--paper);
+}
+
+/* Folio expansion panel: real screenshot, caption, repo link. */
+.ledger__panel {
+  padding: 0 1rem 2rem;
+  border-top: var(--rule);
+}
+
+.ledger__figure {
+  margin: 0;
+  padding-top: 1.5rem;
+}
+
+.ledger__screenshot {
+  border: var(--rule);
+  width: 100%;
+}
+
+.ledger__caption {
+  margin-top: 0.75rem;
+  color: var(--ink-2);
+}
+
+.ledger__repo {
+  margin-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  align-items: baseline;
+  font-size: var(--text-sm);
+}
+
+.ledger__repo-tag {
+  color: var(--ink-2);
+}
+
+/* ------------------------------------------------------------------
+   Mobile (<640px): stacked ledger blocks. Oversized red folio
+   numeral above each name; meta as mono lines beneath. Never any
+   horizontal scroll.
+   ------------------------------------------------------------------ */
+
+@media (max-width: 639px) {
+  .ledger__head {
+    display: none;
+  }
+
+  .ledger__row {
+    display: block;
+    padding: 1.5rem 0;
+  }
+
+  .ledger__folio {
+    display: block;
+    font-size: var(--text-folio);
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+    color: var(--red-500); /* display-size numeral: the accent */
+    margin-bottom: 0.75rem;
+  }
+
+  .ledger__row:hover .ledger__folio {
+    color: var(--red-500);
+  }
+
+  .ledger__name {
+    display: block;
+    font-size: var(--text-2xl);
+    margin-bottom: 0.5rem;
+  }
+
+  .ledger__desc {
+    display: block;
+    margin-bottom: 1rem;
+    max-width: 38ch;
+  }
+
+  .ledger__stack,
+  .ledger__statuscell,
+  .ledger__afford {
+    display: block;
+    text-align: left;
+    margin-bottom: 0.25rem;
+  }
+
+  .ledger__afford {
+    color: var(--red-600);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  .ledger__panel {
+    padding: 0 0 2rem;
+  }
+}
