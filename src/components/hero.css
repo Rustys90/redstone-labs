@@ -1,152 +1,262 @@
 /* ------------------------------------------------------------------
-   Hero — broadsheet masthead plus the rotating shipping manifest.
-   Fits the viewport. Four text elements. Left aligned.
+   Hero — the showpiece.
+   Left 7/12: PS2P masthead (4px stepped hard shadow + tight glow),
+   Inter lead, VT323 flavor row, block buttons. Right 5/12: live
+   schematic panel. Mobile-first: 390px, zero horizontal overflow.
    ------------------------------------------------------------------ */
 
 .hero {
+  padding: calc(52px + var(--s8)) var(--gutter) 0;
+  min-height: 100svh;
   display: flex;
   flex-direction: column;
-  min-height: calc(100svh - 2.75rem); /* viewport minus the top strip */
-  padding: var(--gutter);
-  padding-top: clamp(2rem, 6vw, 4rem);
-  background: var(--paper);
+  justify-content: center;
+  overflow-x: clip;
+  background: var(--bg);
+  color: var(--ink);
 }
 
+.hero__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--s8);
+  align-items: center;
+  width: 100%;
+}
+
+.hero__copy {
+  min-width: 0;
+}
+
+/* The wordmark IS the hero. Pixel faces need looser leading (1.25).
+   Two words wrap independently so 390px never overflows. */
 .hero__masthead {
-  font-size: var(--text-hero);
-  font-weight: 900;
-  font-stretch: 125%; /* Archivo Expanded Black */
-  letter-spacing: -0.03em;
-  line-height: 0.9;
-  text-transform: uppercase; /* studio logotype, per committed direction §6 */
-}
-
-.hero__stop {
-  color: var(--red-500); /* spend (a): the full stop after the masthead */
-}
-
-.hero__lede {
-  margin-top: clamp(1.5rem, 4vw, 2.5rem);
-  font-size: var(--text-lg);
-  line-height: 1.5;
-  max-width: 41.667%; /* statement at 5/12 */
+  font-family: var(--font-display);
+  font-size: var(--text-display-hero);
+  line-height: var(--leading-display-hero);
+  font-weight: 400;
   color: var(--ink);
+  margin: 0 0 var(--s4);
+  text-shadow:
+    4px 4px 0 var(--rs-900),
+    0 0 8px color-mix(in oklch, var(--rs-500) 35%, transparent);
 }
 
-.hero__foot {
-  margin-top: auto;
-  padding-top: clamp(2rem, 6vw, 4rem);
-}
-
-.hero__rule {
-  border-top: var(--rule-red);
-}
-
-/* The manifest row: the only auto-motion on the page.
-   Crossfade is a 200ms fade-in on row swap, every 6s. */
-.manifest {
-  display: block;
-  padding: 1rem 0;
-  font-family: var(--font-mono);
-  font-size: var(--text-sm);
-  color: var(--ink);
-  text-decoration: none;
-  border-bottom: var(--rule);
-}
-
-.manifest:hover {
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 4px;
-}
-
-.manifest__inner {
-  display: block;
-  animation: manifest-in 200ms ease-out;
-}
-
-@keyframes manifest-in {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-.manifest__primary,
-.manifest__secondary {
-  display: inline;
-}
-
-.manifest__folio {
-  font-weight: 700;
-  color: var(--red-600); /* spend (b): folio numerals, small-text red */
-  font-variant-numeric: tabular-nums;
-}
-
-.manifest__name {
-  font-weight: 500;
-}
-
-.manifest__dot {
-  padding: 0 0.5em;
-  color: var(--ink-2);
-}
-
-.manifest__status {
+.hero__word {
   white-space: nowrap;
 }
 
-.manifest__square {
-  display: inline-block;
-  width: 0.55em;
-  height: 0.55em;
-  margin-right: 0.5em;
-  background: var(--red-500); /* spend (c): the shipped status square */
+.hero__lead {
+  font-family: var(--font-body);
+  font-size: var(--text-lead);
+  line-height: var(--leading-lead);
+  font-weight: 400;
+  color: var(--ink);
+  max-width: 32ch;
+  margin: 0 0 var(--s2);
+  text-wrap: pretty;
 }
 
-/* Mobile: the manifest becomes a full-bleed tappable stacked bar. */
-@media (max-width: 479px) {
-  /* Deviation note: --text-hero's 3.5rem minimum sets "REDSTONE" at ~400px
-     in the Expanded Black cut, wider than the 358px content column at
-     390px. Capped at 12vw so the longest word fits on one line. */
-  .hero__masthead {
-    font-size: min(12vw, 3rem);
+/* VT323 whisper track. */
+.hero__flavor {
+  font-family: var(--font-mono);
+  font-size: var(--text-mono-ann);
+  line-height: var(--leading-mono-ann);
+  color: var(--ink-muted);
+  margin: 0 0 var(--s4);
+}
+
+.hero__ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s2);
+  margin: 0 0 var(--s6);
+}
+
+/* Block buttons: radius 0, 4px stepped hard shadow, press collapses
+   to translateY(2px) + 2px shadow. Labels are Silkscreen 400 in
+   sentence case — never all-caps (the pixel face already shouts). */
+.hero__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 14px 22px;
+  font-family: var(--font-section);
+  font-weight: 400;
+  font-size: var(--text-label);
+  line-height: var(--leading-label);
+  letter-spacing: var(--tracking-label);
+  text-decoration: none;
+  border-radius: 0;
+  transition:
+    transform var(--hover) var(--ease-out),
+    box-shadow var(--hover) var(--ease-out),
+    background-color var(--hover) var(--ease-out),
+    border-color var(--hover) var(--ease-out),
+    color var(--hover) var(--ease-out);
+}
+
+.hero__btn:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+.hero__btn--primary {
+  background: var(--rs-600);
+  border: 2px solid var(--rs-600);
+  color: var(--ink);
+  box-shadow: var(--press-shadow);
+}
+
+.hero__btn--primary:hover {
+  background: var(--rs-500);
+  border-color: var(--rs-500);
+}
+
+.hero__btn--primary:active {
+  transform: translateY(2px);
+  box-shadow: var(--press-shadow-collapsed);
+}
+
+.hero__btn--ghost {
+  background: transparent;
+  border: 2px solid var(--hairline);
+  color: var(--ink);
+  box-shadow: 4px 4px 0 var(--surface-2);
+}
+
+.hero__btn--ghost:hover {
+  border-color: var(--rs-500);
+  color: var(--rs-400);
+}
+
+.hero__btn--ghost:active {
+  transform: translateY(2px);
+  box-shadow: 2px 2px 0 var(--surface-2);
+}
+
+.hero__scroll {
+  display: flex;
+  align-items: center;
+  gap: var(--s1);
+  font-family: var(--font-mono);
+  font-size: var(--text-mono-ann);
+  line-height: 1.2;
+  color: var(--ink-faint);
+  margin: 0;
+}
+
+/* ---- Live schematic panel ------------------------------------------ */
+
+.hero__schematic {
+  min-width: 0;
+  border: 2px solid var(--hairline);
+  background: var(--surface);
+  padding: var(--s4);
+}
+
+.hero__schem-notes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s1) var(--s3);
+  margin: var(--s3) 0 0;
+  font-family: var(--font-mono);
+  font-size: var(--text-mono-ann);
+  line-height: 1.2;
+  color: var(--ink-faint);
+}
+
+.hero__schem-notes span:last-child {
+  color: var(--ink-muted);
+}
+
+/* Desktop: vertical bus + three branch rows. */
+.hero__circuit {
+  display: grid;
+  grid-template-columns: 8px 1fr;
+}
+
+.hero__buscol {
+  position: relative;
+}
+
+.hero__bus {
+  position: absolute;
+  inset: 0;
+  width: 8px;
+  height: 100%;
+  display: block;
+}
+
+.hero__branches {
+  display: grid;
+  gap: var(--s6);
+  align-content: space-evenly;
+  padding: var(--s2) 0;
+}
+
+.hero__branch {
+  display: grid;
+  grid-template-columns: 6px minmax(0, 1fr) auto;
+  align-items: center;
+}
+
+/* Junction square sits centered on the bus. */
+.hero__branch .circuit-junction {
+  margin-left: -7px;
+}
+
+.hero__trace {
+  width: 100%;
+  height: 8px;
+  display: block;
+  min-width: 0;
+}
+
+/* Mobile station: one horizontal trace, three small nodes. */
+.hero__station {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .hero__circuit {
+    display: none;
   }
 
-  .hero__lede {
-    max-width: none;
-  }
-
-  .manifest {
-    margin-inline: calc(var(--gutter) * -1);
-    padding: 1rem var(--gutter);
-    border-top: var(--rule);
-    min-height: 3rem;
-    display: flex;
-    align-items: center;
-  }
-
-  .manifest__inner {
-    display: flex;
-    flex-direction: column;
-    gap: 0.375rem;
-  }
-
-  .manifest__primary,
-  .manifest__secondary {
+  .hero__station {
     display: block;
   }
+}
 
-  /* On the stacked bar the secondary line leads without a dot. */
-  .manifest__secondary .manifest__dot:first-child {
-    display: none;
+.hero__station-cell {
+  display: flex;
+  align-items: center;
+}
+
+.hero__station-cell .node {
+  flex: 0 0 auto;
+}
+
+.hero__link {
+  flex: 1 1 0;
+  min-width: 0;
+  height: 8px;
+  display: block;
+}
+
+.hero__divider {
+  margin: var(--s10) calc(var(--gutter) * -1) 0;
+}
+
+@media (min-width: 1024px) {
+  .hero__grid {
+    grid-template-columns: 7fr 5fr;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .manifest__inner {
-    animation: none;
+  .hero__btn {
+    transition: none;
   }
 }
