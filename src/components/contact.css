@@ -1,57 +1,302 @@
-/* ------------------------------------------------------------------
-   Contact (§04): the giant email. Red underline that thickens on
-   hover; the address may wrap once on small screens but never
-   causes horizontal scroll.
-   ------------------------------------------------------------------ */
+/* Contact: "PLACE YOUR BLOCK." transmission panel. PS2P headline,
+   recessed-slot inputs, block-press submit, honest mailto copy. */
 
-.contact__line {
-  font-size: var(--text-lg);
-  line-height: 1.5;
-  margin-bottom: 1.5rem;
-  max-width: var(--measure);
+.contact {
+  padding: 96px 0 0;
 }
 
-.contact__email {
-  display: inline-block;
+.contact__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.contact__head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin: 0 0 48px;
+}
+
+.contact__ore {
+  display: inline-flex;
+  flex: none;
+}
+
+.contact__ore svg {
+  display: block;
+  width: 32px;
+  height: 32px;
+}
+
+.contact__index {
+  font-family: var(--font-mono);
+  font-size: 1.375rem;
+  line-height: 1;
+  color: var(--rs-500);
+  flex: none;
+}
+
+/* The one PS2P moment outside the hero, per the layout notes. */
+.contact__title {
   font-family: var(--font-display);
-  font-weight: 600;
-  font-size: clamp(1.75rem, 5vw, 4rem);
-  letter-spacing: -0.02em;
-  line-height: 1.2;
+  font-size: clamp(1.75rem, 5vw, 3rem);
+  line-height: 1.25;
+  letter-spacing: 0;
   color: var(--ink);
-  text-decoration-line: underline;
-  text-decoration-color: var(--red-500);
+  margin: 0;
+  text-shadow: 4px 4px 0 var(--rs-900);
+}
+
+.contact__flavor {
+  font-family: var(--font-mono);
+  font-size: 1.125rem;
+  line-height: 1.4;
+  color: var(--ink-faint);
+  flex: 1 1 100%;
+  margin: 8px 0 0;
+}
+
+.contact__panel {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  background: var(--surface);
+  border: 2px solid var(--hairline);
+  border-radius: 0;
+  padding: 48px;
+  margin-bottom: 96px;
+}
+
+.contact__direct-key {
+  font-family: var(--font-mono);
+  font-size: 1.125rem;
+  color: var(--ink-faint);
+  margin: 0 0 16px;
+}
+
+.contact__mail {
+  display: inline-block;
+  font-family: var(--font-section);
+  font-weight: 700;
+  font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+  line-height: 1.4;
+  color: var(--ink);
+  text-decoration: underline;
   text-decoration-thickness: 2px;
   text-underline-offset: 8px;
-  overflow-wrap: anywhere; /* may wrap once on 390px, never overflows */
+  text-decoration-color: var(--rs-500);
+  overflow-wrap: anywhere;
+  min-height: 44px;
 }
 
-.contact__email:hover {
-  text-decoration-thickness: 5px;
-  text-decoration-color: var(--red-500);
+.contact__mail:hover {
+  color: var(--rs-400);
 }
 
-.contact__email:focus-visible {
-  outline: 2px solid var(--ink);
-  outline-offset: 6px;
-  text-decoration-thickness: 5px;
+.contact__mail:focus-visible {
+  box-shadow: 0 0 0 2px var(--rs-500);
+  outline: none;
 }
 
-.contact__hint {
-  margin-top: 2rem;
-  color: var(--ink-2);
-  max-width: var(--measure);
-  line-height: 1.6;
+.contact__micro {
+  font-family: var(--font-mono);
+  font-size: 1.125rem;
+  line-height: 1.4;
+  color: var(--ink-faint);
+  margin: 24px 0 0;
 }
 
-@media (max-width: 639px) {
-  .contact__email {
-    /* 48px+ hit area on mobile, even when the address wraps */
-    min-height: 48px;
-    padding: 0.5rem 0;
+.contact__form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  min-width: 0;
+}
+
+.contact__field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.contact__label {
+  font-family: var(--font-section);
+  font-size: 0.875rem;
+  line-height: 1.45;
+  letter-spacing: 0.04em;
+  color: var(--ink-muted);
+}
+
+/* Recessed slot: dark top/left, light bottom/right — set in. */
+.contact__input {
+  width: 100%;
+  background: var(--surface-2);
+  border: 2px solid;
+  border-color: var(--bg) var(--hairline) var(--hairline) var(--bg);
+  border-radius: 0;
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.5;
+  padding: 12px 16px;
+}
+
+.contact__input:focus {
+  border-color: var(--rs-500);
+  outline: none;
+}
+
+.contact__textarea {
+  resize: vertical;
+  min-height: 128px;
+}
+
+.contact__consent {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--ink-muted);
+}
+
+.contact__check {
+  appearance: none;
+  flex: none;
+  width: 24px;
+  height: 24px;
+  margin: 4px 0 0;
+  background: var(--surface-2);
+  border: 2px solid var(--hairline);
+  border-radius: 0;
+  cursor: pointer;
+}
+
+.contact__check:checked {
+  background: var(--rs-500);
+  box-shadow: inset 0 0 0 4px var(--surface-2);
+}
+
+.contact__check:focus-visible {
+  box-shadow: 0 0 0 2px var(--rs-500);
+  outline: none;
+}
+
+.contact__check:checked:focus-visible {
+  box-shadow:
+    inset 0 0 0 4px var(--surface-2),
+    0 0 0 2px var(--rs-500);
+}
+
+/* Block press: 4px stepped hard shadow, collapses to 2px on press. */
+.contact__submit {
+  align-self: flex-start;
+  font-family: var(--font-section);
+  font-size: 0.875rem;
+  line-height: 1.45;
+  letter-spacing: 0.04em;
+  color: var(--ink);
+  background: var(--rs-600);
+  border: 0;
+  border-radius: 0;
+  padding: 16px 32px;
+  min-height: 56px;
+  cursor: pointer;
+  box-shadow: 4px 4px 0 var(--rs-900);
+  transition:
+    transform 150ms var(--ease-out),
+    box-shadow 150ms var(--ease-out),
+    background-color 150ms var(--ease-out);
+}
+
+.contact__submit:hover {
+  background: var(--rs-500);
+}
+
+.contact__submit:active {
+  transform: translateY(2px);
+  box-shadow: 2px 2px 0 var(--rs-900);
+}
+
+.contact__submit:focus-visible {
+  box-shadow:
+    4px 4px 0 var(--rs-900),
+    0 0 0 2px var(--rs-500);
+  outline: none;
+}
+
+.contact__success {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.contact__success-title {
+  font-family: var(--font-section);
+  font-weight: 700;
+  font-size: 1.25rem;
+  line-height: 1.35;
+  text-transform: uppercase;
+  color: var(--rs-400);
+  margin: 0;
+}
+
+.contact__success-text {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--ink-muted);
+  margin: 0;
+  max-width: 65ch;
+}
+
+.contact__cells {
+  display: inline-flex;
+  gap: 4px;
+}
+
+.contact__again {
+  background: none;
+  border: 2px solid var(--hairline);
+  border-radius: 0;
+  color: var(--ink);
+  font-family: var(--font-section);
+  font-size: 0.875rem;
+  letter-spacing: 0.04em;
+  padding: 12px 24px;
+  min-height: 48px;
+  cursor: pointer;
+}
+
+.contact__again:hover {
+  border-color: var(--rs-500);
+  color: var(--rs-400);
+}
+
+.contact__again:focus-visible {
+  box-shadow: 0 0 0 2px var(--rs-500);
+  outline: none;
+}
+
+@media (max-width: 768px) {
+  .contact__panel {
+    grid-template-columns: 1fr;
+    padding: 24px;
+    gap: 32px;
   }
 
-  .contact__line {
-    font-size: var(--text-base);
+  .contact__submit {
+    align-self: stretch;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact__submit {
+    transition: none;
   }
 }
