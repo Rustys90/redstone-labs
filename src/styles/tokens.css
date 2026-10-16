@@ -1,127 +1,183 @@
 /* ------------------------------------------------------------------
    Redstone Labs — design tokens
-   Committed direction §8. One theme: warm paper. No gradients.
-   Fonts are self-hosted from the Fontsource npm packages
-   (@fontsource-variable/archivo, @fontsource/jetbrains-mono),
-   latin subset, font-display: swap.
+   Voxel direction (VOXEL-DIRECTION.md §§4-5, round 3). Dark "earned"
+   schematic ground. oklch-authored with a hex fallback line above
+   each declaration. Radius 0 everywhere. 8px block grid.
+   Fonts load from Google Fonts in index.html (all SIL OFL 1.1).
    ------------------------------------------------------------------ */
 
-/* Archivo variable (wght 100-900, wdth 62%-125%), latin subset */
-@font-face {
-  font-family: "Archivo";
-  font-style: normal;
-  font-display: swap;
-  font-weight: 100 900;
-  font-stretch: 62% 125%;
-  src: url("/fonts/archivo-latin-var.woff2") format("woff2-variations");
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
-    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
-    U+2212, U+2215, U+FEFF, U+FFFD;
-}
-
-/* Fallback metrics so the swap does not shift layout */
-@font-face {
-  font-family: "Archivo Fallback";
-  font-style: normal;
-  font-weight: 100 900;
-  src: local("Arial");
-  size-adjust: 97.5%;
-}
-
-/* JetBrains Mono, latin subset */
-@font-face {
-  font-family: "JetBrains Mono";
-  font-style: normal;
-  font-display: swap;
-  font-weight: 400;
-  src: url("/fonts/jetbrains-mono-latin-400.woff2") format("woff2");
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
-    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
-    U+2212, U+2215, U+FEFF, U+FFFD;
-}
-
-@font-face {
-  font-family: "JetBrains Mono";
-  font-style: normal;
-  font-display: swap;
-  font-weight: 500;
-  src: url("/fonts/jetbrains-mono-latin-500.woff2") format("woff2");
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
-    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
-    U+2212, U+2215, U+FEFF, U+FFFD;
-}
-
-@font-face {
-  font-family: "JetBrains Mono";
-  font-style: normal;
-  font-display: swap;
-  font-weight: 700;
-  src: url("/fonts/jetbrains-mono-latin-700.woff2") format("woff2");
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
-    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
-    U+2212, U+2215, U+FEFF, U+FFFD;
-}
-
 :root {
-  /* Accent ramp: redstone red, hue 27. Accent spent only at 500/600. */
-  --red-50: #fbebe9;
-  --red-50: oklch(0.97 0.02 27);
-  --red-100: #f6d7d2;
-  --red-100: oklch(0.93 0.04 27);
-  --red-200: #efa9a0;
-  --red-200: oklch(0.86 0.08 27);
-  --red-300: #e4776a;
-  --red-300: oklch(0.76 0.13 27);
-  --red-400: #d64a3a;
-  --red-400: oklch(0.65 0.19 27);
-  --red-500: #d92b21;
-  --red-500: oklch(0.55 0.22 27); /* THE accent */
-  --red-600: #b02318;
-  --red-600: oklch(0.46 0.2 27); /* red that carries small text */
-  --red-700: #8c1d13;
-  --red-700: oklch(0.37 0.16 27);
-  --red-800: #661510;
-  --red-800: oklch(0.28 0.12 27);
-  --red-900: #47100d;
-  --red-900: oklch(0.21 0.08 27);
-  --red-950: #2e0b09;
-  --red-950: oklch(0.15 0.04 27);
+  /* ---- Type stacks (registers are law: faces never cover for each
+     other) -------------------------------------------------------- */
+  --font-display: "Press Start 2P", "Silkscreen", monospace;
+  --font-section: "Silkscreen", "Press Start 2P", monospace;
+  --font-mono: "VT323", "IBM Plex Mono", monospace;
+  --font-body: "Inter", system-ui, sans-serif;
 
-  /* Surfaces: warm-tinted paper, never pure gray. ONE theme for the page. */
-  --paper: #fbfaf7;
-  --paper: oklch(0.985 0.006 100);
-  --paper-2: #f4f1ea;
-  --paper-2: oklch(0.96 0.008 100);
-  --ink: #23211d;
-  --ink: oklch(0.17 0.008 100);
-  --ink-2: #6e6a61;
-  --ink-2: oklch(0.44 0.012 100);
-  --hairline: #ddd8cc;
-  --hairline: oklch(0.87 0.01 100);
+  /* ---- Type scale (fluid, rem-based; §4) -------------------------- */
+  --text-display-hero: clamp(2.25rem, 7vw, 4.5rem); /* PS2P hero */
+  --leading-display-hero: 1.25;
+  --text-display-masthead: clamp(1.5rem, 4vw, 2.5rem); /* PS2P masthead */
+  --leading-display-masthead: 1.2;
+  --text-h2: clamp(1.5rem, 3vw, 2.25rem); /* Silkscreen 700 */
+  --leading-h2: 1.3;
+  --text-h3: 1.25rem; /* Silkscreen 700 */
+  --leading-h3: 1.35;
+  --text-mono-ann: 1.125rem; /* VT323 annotations, min 16px */
+  --leading-mono-ann: 1.4;
+  --text-body: 1rem; /* Inter 400 */
+  --leading-body: 1.65;
+  --text-lead: 1.25rem; /* Inter 400 hero subhead */
+  --leading-lead: 1.5;
+  --text-label: 0.875rem; /* Silkscreen 400, sentence case */
+  --leading-label: 1.45;
+  --tracking-label: 0.04em;
 
-  /* Inversion pair for ledger hover */
-  --invert-bg: var(--ink);
-  --invert-fg: var(--paper);
+  /* ---- The world (dark, earned) ----------------------------------- */
+  --bg: #141013;
+  --bg: oklch(0.1 0.015 28);
+  --surface: #1e1717;
+  --surface: oklch(0.145 0.02 28);
+  --surface-2: #2a1f1e;
+  --surface-2: oklch(0.185 0.022 28);
+  --hairline: #3b2e2d;
+  --hairline: oklch(0.24 0.025 28);
+  --ink: #f5efea;
+  --ink: oklch(0.94 0.008 28);
+  --ink-muted: #a89c94;
+  --ink-muted: oklch(0.68 0.02 28);
+  --ink-faint: #6e625c;
+  --ink-faint: oklch(0.47 0.02 28);
 
-  /* Type */
-  --font-display: "Archivo", "Archivo Fallback", system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
-  --text-xs: 0.75rem; /* 12px captions, metadata */
-  --text-sm: 0.875rem; /* 14px secondary UI */
-  --text-base: 1rem; /* 16px body */
-  --text-lg: 1.25rem; /* 20px lead */
-  --text-xl: 1.5625rem; /* 25px H4 */
-  --text-2xl: 1.9375rem; /* 31px H3 */
-  --text-3xl: 2.4375rem; /* 39px H2 */
-  --text-4xl: 3.0625rem; /* 49px H1 */
-  --text-hero: clamp(3.5rem, 9vw, 8rem);
-  --text-folio: clamp(4rem, 10vw, 9rem); /* oversized index numerals */
+  /* ---- Redstone ramp (the accent; chroma peaks mid-ramp) ----------- */
+  --rs-300: #ff9a8a;
+  --rs-300: oklch(0.8 0.13 26);
+  --rs-400: #ff6b5e;
+  --rs-400: oklch(0.72 0.19 26);
+  --rs-500: #ff3d33;
+  --rs-500: oklch(0.65 0.23 26); /* PRIMARY: powered traces, nodes, CTA */
+  --rs-600: #d92d24;
+  --rs-600: oklch(0.55 0.2 26);
+  --rs-700: #a11f1b;
+  --rs-700: oklch(0.42 0.15 26);
+  --rs-900: #4a1512;
+  --rs-900: oklch(0.22 0.06 26); /* dormant trace beds, faint grid */
 
-  /* Geometry: the grid is the design */
+  /* ---- Semantic secondaries (each has one job) -------------------- */
+  --cu-500: #b07a3f;
+  --cu-500: oklch(0.6 0.11 62); /* unpowered trace color */
+  --cu-300: #d09a5c;
+  --cu-300: oklch(0.72 0.09 62); /* unpowered node borders */
+  --ore-400: #f2b83b;
+  --ore-400: oklch(0.82 0.15 85); /* ore glints only, section markers */
+  --ok: #4ade80;
+  --ok: oklch(0.72 0.17 145); /* form success states only */
+  --sel: rgba(217, 45, 36, 0.35); /* selection bg (--rs-600 at 35%) */
+
+  /* ---- Glow is a state (powered), never a style ------------------- */
+  --glow-powered: drop-shadow(0 0 8px rgba(255, 61, 51, 0.5));
+  --glow-pulse: 0 0 8px rgba(255, 154, 138, 0.65);
+
+  /* ---- Geometry: the grid is the design --------------------------- */
   --radius: 0;
-  --rule: 1px solid var(--hairline);
-  --rule-red: 2px solid var(--red-500);
-  --section-pad: clamp(4rem, 10vw, 8rem);
+  --px: 8px; /* base block unit; ornament pixels in 4px units */
+  --s1: 8px;
+  --s2: 16px;
+  --s3: 24px;
+  --s4: 32px;
+  --s5: 40px;
+  --s6: 48px;
+  --s8: 64px;
+  --s10: 80px;
+  --s12: 96px;
+  --s16: 128px;
   --gutter: clamp(1rem, 4vw, 3rem);
+  --section-pad: clamp(4rem, 10vw, 8rem);
   --measure: 65ch;
+
+  /* ---- Motion: one orchestrated system (the circuit) -------------- */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-linear: linear;
+  --trace-draw: 1200ms; /* dash-draw per path */
+  --trace-stagger: 150ms; /* stagger down the chain */
+  --trace-draw-mobile: 800ms; /* short station traces, <=768px */
+  --pulse-loop: 2400ms; /* charge pulse loop, linear */
+  --node-on: 300ms; /* power-on transition, ease-out */
+  --spark: 150ms; /* spark flash before power-on */
+  --node-off: 200ms; /* power-off (quieter than entrances) */
+  --hover: 150ms; /* border brightens, ease-out */
+  --hero-draw: 900ms; /* hero bus draw on load */
+
+  /* ---- Focus: 2px redstone ring, never outline -------------------- */
+  --focus-ring: 0 0 0 2px var(--rs-500);
+
+  /* ---- Block press (blocky CTA construction) ---------------------- */
+  --press-shadow: 4px 4px 0 var(--rs-900);
+  --press-shadow-collapsed: 2px 2px 0 var(--rs-900);
+}
+
+/* ------------------------------------------------------------------
+   Day theme ("Factorio alt-mode"): same schematic, world tint shifts.
+   Traces keep the redstone ramp but drop the glow (glow needs dark).
+   Suppressed transitions during the swap keep it instant.
+   ------------------------------------------------------------------ */
+[data-theme="day"] {
+  --bg: #f2ece1;
+  --bg: oklch(0.93 0.01 70);
+  --surface: #e9e1d2;
+  --surface: oklch(0.9 0.012 70);
+  --surface-2: #ded3bd;
+  --surface-2: oklch(0.855 0.015 70);
+  --hairline: #c3b498;
+  --hairline: oklch(0.76 0.02 70);
+  --ink: #241a14;
+  --ink: oklch(0.22 0.02 60);
+  --ink-muted: #5c4f42;
+  --ink-muted: oklch(0.42 0.025 60);
+  --ink-faint: #8a7a66;
+  --ink-faint: oklch(0.58 0.025 65);
+  --glow-powered: none;
+  --glow-pulse: none;
+  --sel: rgba(217, 45, 36, 0.22);
+  --press-shadow: 4px 4px 0 var(--hairline);
+  --press-shadow-collapsed: 2px 2px 0 var(--hairline);
+}
+
+/* Instant swap, no transition smear (interface-craft rule) */
+.theme-swap,
+.theme-swap *,
+.theme-swap *::before,
+.theme-swap *::after {
+  transition: none !important;
+  animation: none !important;
+}
+
+/* ------------------------------------------------------------------
+   LEGACY ALIASES — v2-era component CSS still being restyled by other
+   workers references these names. They map to voxel equivalents so
+   the page stays coherent mid-sweep. Remove when the sweep completes.
+   ------------------------------------------------------------------ */
+:root {
+  --paper: var(--bg);
+  --paper-2: var(--surface);
+  --ink-2: var(--ink-muted);
+  --red-500: var(--rs-500);
+  --red-600: var(--rs-600);
+  --red-200: var(--rs-300);
+  --red-700: var(--rs-700);
+  --red-900: var(--rs-900);
+  --rule: 1px solid var(--hairline);
+  --rule-red: 2px solid var(--rs-500);
+  /* v2 body copy was Inter-via-Archivo; voxel body is Inter. */
+  --font-display: var(--font-body);
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.25rem;
+  --text-xl: 1.5625rem;
+  --text-2xl: 1.9375rem;
+  --text-3xl: 2.4375rem;
+  --text-4xl: 3.0625rem;
+  --text-hero: var(--text-display-hero);
+  --text-folio: var(--text-display-hero);
 }
