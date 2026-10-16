@@ -1,89 +1,94 @@
-import LegalLayout, { type LegalSection } from '../../components/LegalLayout';
+import LegalLayout, { LegalLede, LegalSection } from "./LegalLayout";
 
-const SECTIONS: LegalSection[] = [
-  { id: 'what-we-store', title: 'What we store' },
-  { id: 'strictly-necessary', title: 'Strictly necessary' },
-  { id: 'optional', title: 'Optional — none by default' },
-  { id: 'third-party', title: 'Third-party cookies' },
-  { id: 'changing-your-choice', title: 'Changing your choice' },
-  { id: 'contact', title: 'Contact' },
-];
+const UPDATED = "2026-10-16";
+const EMAIL = "s90.vfx@gmail.com";
+
+/** Custom event the consent banner listens for; dispatches re-open. */
+function openCookieSettings() {
+  window.dispatchEvent(new CustomEvent("rl:open-consent"));
+}
 
 export default function Cookies() {
   return (
-    <LegalLayout title="Cookie Policy" lastUpdated="16 October 2026" sections={SECTIONS}>
-      <p>
-        <strong>Short version:</strong> we store exactly one thing in your browser — your
-        cookie-consent choice. No analytics cookies, no advertising cookies, no third-party
-        trackers. If that ever changes, this page will say so before anything new is set.
-      </p>
+    <LegalLayout title="Cookie policy" updated={UPDATED}>
+      <LegalLede>
+        <strong>Short version:</strong> we store exactly one thing in your
+        browser — your cookie-consent choice. No analytics cookies, no
+        advertising cookies, no third-party trackers. If that ever changes,
+        this page will say so before anything new is set.
+      </LegalLede>
 
-      <section id="what-we-store" aria-labelledby="what-we-store-h">
-        <h2 id="what-we-store-h">1. What we store</h2>
+      <LegalSection num="01" title="What we store">
         <p>
-          We use browser storage — cookies and localStorage — for a single functional purpose:
-          remembering the choice you made in our consent banner. We do not use tracking pixels,
-          fingerprinting, or behavioural analytics.
+          We use browser storage — cookies and localStorage — for a single
+          functional purpose: remembering the choice you made in our consent
+          banner. We do not use tracking pixels, fingerprinting, or behavioural
+          analytics.
         </p>
-      </section>
+      </LegalSection>
 
-      <section id="strictly-necessary" aria-labelledby="strictly-necessary-h">
-        <h2 id="strictly-necessary-h">2. Strictly necessary</h2>
+      <LegalSection num="02" title="Strictly necessary">
         <ul>
           <li>
             <strong>
               <code>rl-consent</code> (localStorage)
-            </strong>{' '}
-            — remembers whether you accepted or declined optional cookie categories. Without it,
-            we&rsquo;d have to ask you on every visit. It never leaves your device and contains
-            no personal data.
+            </strong>{" "}
+            — remembers whether you accepted or declined optional cookie
+            categories. Without it, we&rsquo;d have to ask you on every visit.
+            It never leaves your device and contains no personal data.
           </li>
         </ul>
         <p>
-          Because this storage is strictly necessary for the consent feature to work, it
-          doesn&rsquo;t require your opt-in — but you can clear it any time (see section 5).
+          Because this storage is strictly necessary for the consent feature to
+          work, it doesn&rsquo;t require your opt-in — but you can clear it any
+          time (see section 5).
         </p>
-      </section>
+      </LegalSection>
 
-      <section id="optional" aria-labelledby="optional-h">
-        <h2 id="optional-h">3. Optional — none by default</h2>
+      <LegalSection num="03" title="Optional — none by default">
         <p>
-          We run <strong>no analytics, advertising, or marketing cookies by default</strong>. If we
-          ever add optional categories (for example, privacy-respecting analytics), they will be
-          switched off until you explicitly opt in through the consent banner — and they will be
+          We run <strong>no analytics, advertising, or marketing cookies by
+          default</strong>. If we ever add optional categories (for example,
+          privacy-respecting analytics), they will be switched off until you
+          explicitly opt in through the consent banner — and they will be
           listed on this page first.
         </p>
-      </section>
+      </LegalSection>
 
-      <section id="third-party" aria-labelledby="third-party-h">
-        <h2 id="third-party-h">4. Third-party cookies</h2>
+      <LegalSection num="04" title="Third-party cookies">
         <p>
-          None. We set no third-party cookies, and we load no third-party scripts that set them.
+          None. We set no third-party cookies, and we load no third-party
+          scripts that set them.
         </p>
-      </section>
+      </LegalSection>
 
-      <section id="changing-your-choice" aria-labelledby="changing-your-choice-h">
-        <h2 id="changing-your-choice-h">5. Changing your choice</h2>
+      <LegalSection num="05" title="Changing your choice">
         <p>You can change your mind at any time:</p>
         <ul>
           <li>
-            Click <strong>&ldquo;Cookie settings&rdquo;</strong> in the site footer to re-open
+            Use the <strong>“Cookie settings”</strong> button below to re-open
             the consent banner and update your choice.
           </li>
           <li>
-            Or clear site data in your browser&rsquo;s settings, which removes the{' '}
-            <code>rl-consent</code> entry — we&rsquo;ll simply ask you again next visit.
+            Or clear site data in your browser&rsquo;s settings, which removes
+            the <code>rl-consent</code> entry — we&rsquo;ll simply ask you again
+            next visit.
           </li>
         </ul>
-      </section>
-
-      <section id="contact" aria-labelledby="contact-h">
-        <h2 id="contact-h">6. Contact</h2>
         <p>
-          Questions about cookies or your choices:{' '}
-          <a href="mailto:s90.vfx@gmail.com">s90.vfx@gmail.com</a> — Redstone Labs, Delhi, India.
+          <button
+            type="button"
+            className="legal__button"
+            onClick={openCookieSettings}
+          >
+            Cookie settings
+          </button>
         </p>
-      </section>
+        <p>
+          Questions about cookies or your choices:{" "}
+          <a href={`mailto:${EMAIL}`}>{EMAIL}</a> — Redstone Labs, Delhi, India.
+        </p>
+      </LegalSection>
     </LegalLayout>
   );
 }
