@@ -1,0 +1,87 @@
+/* ------------------------------------------------------------------
+   About (§02): meta-column layout. Mono meta column on the left,
+   statement column at 65ch on the right. Stacks on mobile.
+   ------------------------------------------------------------------ */
+
+.about__grid {
+  display: grid;
+  grid-template-columns: 200px minmax(0, 1fr);
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: start;
+}
+
+.about__meta {
+  display: block;
+}
+
+.about__meta-row {
+  padding: 0.625rem 0;
+  border-bottom: var(--rule);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.125rem;
+}
+
+.about__meta-row:first-child {
+  border-top: var(--rule);
+}
+
+.about__meta-row dt {
+  color: var(--ink-2);
+}
+
+.about__meta-row dd {
+  margin: 0;
+  color: var(--ink);
+}
+
+.about__statement {
+  max-width: var(--measure);
+}
+
+.about__statement > p {
+  font-size: var(--text-lg);
+  line-height: 1.6;
+}
+
+.about__principles {
+  margin-top: 2.5rem;
+  border-top: var(--rule);
+}
+
+.about__principle {
+  display: grid;
+  grid-template-columns: 3rem minmax(0, 1fr);
+  gap: 1rem;
+  align-items: baseline;
+  padding: 1.25rem 0;
+  border-bottom: var(--rule);
+}
+
+.about__principle-num {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--red-600);
+  font-variant-numeric: tabular-nums;
+}
+
+.about__principle p {
+  max-width: var(--measure);
+  line-height: 1.6;
+}
+
+@media (max-width: 639px) {
+  .about__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .about__meta {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 1.5rem;
+  }
+
+  .about__statement > p {
+    font-size: var(--text-base);
+  }
+}
