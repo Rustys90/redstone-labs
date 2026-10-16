@@ -1,48 +1,110 @@
-import Section from "./Section";
+import { useEffect, useRef, useState } from "react";
+import { DustDivider, Pulse, Trace } from "./TraceSystem";
+import { usePowered } from "../hooks/usePowered";
+import SectionHead from "./SectionHead";
 import "./process.css";
 
-/* Process (§03): numbered spec list with hairlines. Each row has a
-   red mono number, an Archivo 600 title, one plain sentence, and a
-   right-aligned mono note. */
+/* Process (§03): numbered schematic stages on one horizontal trace.
+   01 SURVEY → 02 WIRE → 03 POWER → 04 SHIP. The wire draws
+   left-to-right on scroll and each station powers on in turn through
+   its junction square. Mobile: stations stack with a short stub
+   trace above each one. */
 
-const steps = [
+interface Stage {
+  n: string;
+  name: string;
+  text: string;
+}
+
+const stages: Stage[] = [
   {
     n: "01",
-    title: "Tell us what you need",
-    text: "Describe what you want built in plain words, and we turn it into a written spec with a fixed scope before any code is written.",
-    note: "Fixed-scope quote in days",
+    name: "Survey",
+    text: "We map the scope in a one-page spec — what ships, what doesn't, and what it costs.",
   },
   {
     n: "02",
-    title: "We build in the open",
-    text: "You watch progress land in a shared repo as working builds, so you always see the real thing instead of a status update.",
-    note: "Working build every week",
+    name: "Wire",
+    text: "We lay out the architecture and the interfaces before a single feature is coded.",
   },
   {
     n: "03",
-    title: "You own the result",
-    text: "The code, the docs, and the deployment land in your hands with everything needed to run it, extend it, or hand it on.",
-    note: "Full handover, documented",
+    name: "Power",
+    text: "We build in the open, with working builds you can touch every week.",
+  },
+  {
+    n: "04",
+    name: "Ship",
+    text: "We launch, hand over the code and the keys, and stay on the wire for fixes.",
   },
 ];
 
-export default function Process() {
+function Station({ stage, index }: { stage: Stage; index: number }) {
+  const { ref, powered } = usePowered<HTMLLIElement>(0.4);
+  const branchId = `process-branch-${stage.n}`;
   return (
-    <Section id="process" index="03" title="Process">
-      <ol className="process__list">
-        {steps.map((s) => (
-          <li key={s.n} className="process__row">
-            <span className="process__num" aria-hidden="true">
-              {s.n}
-            </span>
-            <div className="process__main">
-              <h3 className="process__title">{s.title}</h3>
-              <p className="process__text">{s.text}</p>
-            </div>
-            <p className="process__note meta">{s.note}</p>
-          </li>
-        ))}
-      </ol>
-    </Section>
+    <li
+      ref={ref}
+      className={powered ? "process__station process__station--powered" : "process__station"}
+    >
+      <span className="process__branch-m" aria-hidden="true">
+        <Trace id={branchId} d="M0 4 H96" color={powered ? "red" : "dim"} />
+      </span>
+      <span className="process__junction" aria-hidden="true" />
+      <span className="process__num" aria-hidden="true">
+        {stage.n}
+      </span>
+      <h3 className="process__name">{stage.name}</h3>
+      <p className="process__text">{stage.text}</p>
+      <span className="process__step" aria-hidden="true">
+        STEP {index + 1} / 4
+      </span>
+    </li>
+  );
+}
+
+export default function Process() {
+  const trackRef = useRef<HTMLDivElement | null>(null);
+  const [wireW, setWireW] = useState(0);
+
+  /* The wire spans the measured track width; the path is authored in
+     px (1 unit = 1px) so the trace fills its wrapper exactly. */
+  useEffect(() => {
+    const el = trackRef.current;
+    if (!el) return;
+    const measure = () => setWireW(el.offsetWidth);
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+
+  return (
+    <section id="process" className="process" aria-labelledby="process-title">
+      <div className="process__inner">
+        <SectionHead
+          index="03"
+          title="Process"
+          titleId="process-title"
+          flavor="SIGNAL PATH — SURVEY TO SHIP IN 4 STATIONS"
+        />
+        <div ref={trackRef} className="process__track">
+          <div className="process__wire" aria-hidden="true">
+            {wireW > 0 && (
+              <>
+                <Trace id="process-wire" d={`M0 4 H${wireW}`} color="dim" />
+                <Pulse pathId="process-wire" />
+              </>
+            )}
+          </div>
+          <ol className="process__stations" aria-label="Process stages">
+            {stages.map((s, i) => (
+              <Station key={s.n} stage={s} index={i} />
+            ))}
+          </ol>
+        </div>
+      </div>
+      <DustDivider />
+    </section>
   );
 }
