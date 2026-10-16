@@ -4,6 +4,9 @@ import "./cookie-banner.css";
 
 const STORAGE_KEY = "rl-consent";
 
+/** Dispatched by the cookie policy page to re-open this banner. */
+export const OPEN_CONSENT_EVENT = "rl:open-consent";
+
 interface ConsentRecord {
   necessary: true;
   analytics: boolean;
@@ -52,17 +55,18 @@ export default function CookieBanner() {
     return () => window.clearTimeout(timer);
   }, []);
 
-  // Re-open from the footer "Cookie settings" link.
+  // Re-openable: the cookie policy page dispatches OPEN_CONSENT_EVENT.
+  // Pre-fill the toggles with the stored choice, then show the banner.
   useEffect(() => {
-    const reopen = () => {
+    const open = () => {
       const saved = readConsent();
       setAnalytics(saved?.analytics ?? false);
       setMarketing(saved?.marketing ?? false);
       setCustomizing(true);
       setVisible(true);
     };
-    window.addEventListener("rl:open-cookies", reopen);
-    return () => window.removeEventListener("rl:open-cookies", reopen);
+    window.addEventListener(OPEN_CONSENT_EVENT, open);
+    return () => window.removeEventListener(OPEN_CONSENT_EVENT, open);
   }, []);
 
   const save = (analyticsChoice: boolean, marketingChoice: boolean) => {
@@ -83,7 +87,7 @@ export default function CookieBanner() {
       {!customizing ? (
         <div className="cookie-banner-main">
           <div className="cookie-banner-copy">
-            <p className="cookie-banner-title">We use cookies</p>
+            <p className="cookie-banner-title">Cookie consent</p>
             <p className="cookie-banner-text">
               We use necessary cookies to make the site work. With your
               permission we&rsquo;d also like to use analytics and marketing
