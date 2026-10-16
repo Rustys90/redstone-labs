@@ -1,0 +1,327 @@
+/* ------------------------------------------------------------------
+   Legal pages — printed-document treatment.
+   Paper background, Archivo text, JetBrains Mono metadata,
+   hairline rules, § folio markers, red spent only on the numerals.
+   ------------------------------------------------------------------ */
+
+.legal {
+  padding: var(--section-pad) var(--gutter);
+}
+
+.legal__back {
+  max-width: var(--measure);
+  margin: 0 auto 3.5rem;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.legal__back a {
+  text-decoration-color: var(--hairline);
+}
+
+.legal__head {
+  max-width: var(--measure);
+  margin: 0 auto 2.5rem;
+  padding-bottom: 2.5rem;
+  border-bottom: var(--rule);
+}
+
+.legal__kicker {
+  margin: 0 0 1.25rem;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--red-600); /* red that carries small text */
+}
+
+.legal__title {
+  font-size: var(--text-3xl);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  margin-bottom: 1rem;
+}
+
+.legal__updated {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+
+.legal__body {
+  max-width: var(--measure); /* 65ch measure */
+  margin: 0 auto;
+  font-size: var(--text-base);
+  line-height: 1.6;
+}
+
+.legal__body p {
+  margin-bottom: 1rem;
+}
+
+.legal__lede {
+  font-size: var(--text-lg);
+  line-height: 1.55;
+  margin-bottom: 3rem;
+  padding-bottom: 2.5rem;
+  border-bottom: var(--rule);
+}
+
+.legal__section {
+  margin-bottom: 2.75rem;
+}
+
+.legal__h2 {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  font-size: var(--text-xl);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin-bottom: 1.25rem;
+}
+
+.legal__num {
+  flex: 0 0 auto;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--red-600); /* red that carries small text */
+}
+
+.legal__body ul {
+  margin: 0 0 1rem;
+  padding-left: 1.5rem;
+}
+
+.legal__body ul li {
+  list-style: square;
+  margin-bottom: 0.625rem;
+}
+
+.legal__body ul li::marker {
+  color: var(--ink-2);
+}
+
+.legal__body code {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+  background: var(--paper-2);
+  border: var(--rule);
+  padding: 0.125em 0.375em;
+  white-space: nowrap;
+}
+
+.legal__body strong {
+  font-weight: 600;
+}
+
+/* Numbered "How it works" steps — spec-list rows with red numerals. */
+.legal__steps {
+  margin: 0;
+  padding: 0;
+  border-top: var(--rule);
+}
+
+.legal__steps li {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: var(--rule);
+  counter-increment: legal-step;
+}
+
+.legal__steps li::before {
+  content: "0" counter(legal-step);
+  flex: 0 0 auto;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--red-600);
+  padding-top: 0.375rem;
+}
+
+.legal__step-text {
+  flex: 1;
+}
+
+.legal__steps {
+  counter-reset: legal-step;
+}
+
+/* ------------------------------------------------------------------
+   Deletion request form — mailto-backed, honest, no backend.
+   ------------------------------------------------------------------ */
+
+.legal__form {
+  margin-top: 1.5rem;
+  border-top: var(--rule);
+  padding-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.legal__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.legal__field > label {
+  font-weight: 600;
+  font-size: var(--text-sm);
+}
+
+.legal__hint {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.02em;
+  color: var(--ink-2);
+}
+
+.legal__field input[type="text"],
+.legal__field input[type="email"],
+.legal__field textarea {
+  width: 100%;
+  padding: 0.75rem 0.875rem;
+  font-family: var(--font-display);
+  font-size: var(--text-base);
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--ink);
+  resize: vertical;
+}
+
+.legal__consent {
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.legal__consent input[type="checkbox"] {
+  flex: 0 0 auto;
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-top: 0.125rem;
+  accent-color: var(--ink);
+  cursor: pointer;
+}
+
+.legal__consent label {
+  font-size: var(--text-sm);
+  line-height: 1.55;
+  cursor: pointer;
+}
+
+/* Rectangular ink button shared by the cookies page and the form. */
+.legal__button {
+  align-self: flex-start;
+  padding: 0.875rem 1.5rem;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--paper);
+  background: var(--ink);
+  border: 1px solid var(--ink);
+  cursor: pointer;
+}
+
+.legal__button:hover:not(:disabled) {
+  color: var(--ink);
+  background: var(--paper);
+}
+
+.legal__button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.legal__note {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.02em;
+  color: var(--ink-2);
+}
+
+.legal__foot {
+  max-width: var(--measure);
+  margin: 3.5rem auto 0;
+  padding-top: 2rem;
+  border-top: var(--rule);
+}
+
+.legal__foot .legal__back {
+  margin-bottom: 0;
+}
+
+/* ------------------------------------------------------------------
+   Interim states — the lazy-import rejection fallback in App.tsx.
+   ------------------------------------------------------------------ */
+
+.legal-fallback {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: var(--section-pad) var(--gutter);
+}
+
+.legal-fallback .meta {
+  color: var(--red-600);
+  margin-bottom: 1rem;
+}
+
+.legal-fallback__title {
+  font-size: var(--text-3xl);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  margin-bottom: 1.5rem;
+}
+
+.legal-fallback p {
+  margin-bottom: 1rem;
+}
+
+.legal-loading {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: var(--section-pad) var(--gutter);
+  color: var(--ink-2);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 40rem) {
+  .legal__back {
+    margin-bottom: 2.5rem;
+  }
+
+  .legal__head {
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+  }
+
+  .legal__lede {
+    margin-bottom: 2.5rem;
+    padding-bottom: 2rem;
+  }
+}
