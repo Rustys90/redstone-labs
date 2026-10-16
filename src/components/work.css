@@ -1,225 +1,321 @@
-/* ------------------------------------------------------------------
-   Work — the Shipping Ledger (§01).
-   Full-width index table; rows invert on hover (ink bg, paper text,
-   red numeral). Mobile becomes stacked ledger blocks. Static: no
-   scroll reveals, hover inversion is instant per the direction.
-   ------------------------------------------------------------------ */
+/* Work: projects as circuit nodes on a left-rail bus. */
 
-.ledger {
-  border-top: var(--rule-red);
+.work {
+  padding: 96px 0 0;
+  overflow-x: clip;
 }
 
-.ledger__head,
-.ledger__row {
-  display: grid;
-  grid-template-columns:
-    3.5rem
-    minmax(9rem, 12rem)
-    minmax(0, 1fr)
-    minmax(9rem, 13rem)
-    6.5rem
-    4.5rem;
-  gap: 1.5rem;
-  align-items: baseline;
+.work__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
 }
 
-.ledger__head {
-  padding: 0.875rem 1rem;
-  border-bottom: var(--rule);
-  color: var(--ink-2);
+.work__schematic {
+  position: relative;
 }
 
-.ledger__item {
-  border-bottom: var(--rule);
+/* Left-rail bus: absolute 16px rail, trace fills it. Hidden ≤768px. */
+.work__rail {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 16px;
 }
 
-.ledger__row {
+.work__rail svg {
+  display: block;
   width: 100%;
-  padding: 1.25rem 1rem;
-  color: inherit;
-  text-decoration: none; /* ledger rows opt out of the default link underline */
-  background: transparent;
-  border: 0;
-  font: inherit;
-  text-align: left;
-  cursor: pointer;
+  height: 100%;
 }
 
-.ledger__row--toggle {
-  appearance: none;
+.work__nodes {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
 }
 
-.ledger__row:hover {
-  background: var(--ink);
-  color: var(--paper);
+.work__row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding-left: 40px;
 }
 
-.ledger__row:hover .ledger__folio {
-  color: var(--red-500);
+/* Junction square where the branch taps the bus. */
+.work__junction {
+  position: absolute;
+  left: 5px;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  margin-top: -3px;
+  background: var(--cu-500);
+  transition: background-color 200ms var(--ease-out);
 }
 
-.ledger__row:hover .ledger__afford {
-  text-decoration: underline;
+.work__row--powered .work__junction {
+  background: var(--rs-500);
 }
 
-.ledger__row:focus-visible {
-  outline: 2px solid var(--ink);
-  outline-offset: -2px;
+/* Horizontal branch trace: near lane 112px, far lane 248px. */
+.work__branch {
+  flex: none;
+  width: 112px;
+  height: 8px;
+  margin: 0 16px 0 8px;
 }
 
-.ledger__row:hover:focus-visible {
-  outline-color: var(--paper);
+.work__row:nth-child(even) .work__branch {
+  width: 248px;
 }
 
-.ledger__folio {
-  font-family: var(--font-mono);
+.work__branch svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Mobile stub branch: hidden on desktop. */
+.work__branch-m {
+  display: none;
+}
+
+.work__nodewrap {
+  flex: none;
+  margin-right: 16px;
+}
+
+/* Node card. */
+.work__card {
+  flex: 1 1 auto;
+  min-width: 0;
+  background: var(--surface);
+  border: 2px solid var(--hairline);
+  border-radius: 0;
+  padding: 24px;
+  transition: border-color 300ms var(--ease-out);
+}
+
+.work__row--powered .work__card {
+  border-color: var(--rs-700);
+}
+
+.work__head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.work__glyph {
+  flex: none;
+  image-rendering: pixelated;
+}
+
+.work__title {
+  font-family: var(--font-section);
   font-weight: 700;
-  color: var(--red-600); /* small-size red for the ledger numerals */
-  font-variant-numeric: tabular-nums;
+  font-size: 1.25rem;
+  line-height: 1.35;
+  margin: 0;
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
-.ledger__name {
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  font-size: var(--text-lg);
-  line-height: 1.2;
-}
-
-.ledger__desc {
-  color: var(--ink-2);
-  font-size: var(--text-sm);
-  line-height: 1.5;
-}
-
-.ledger__row:hover .ledger__desc {
-  color: var(--paper);
-}
-
-.ledger__stack {
-  color: var(--ink-2);
-}
-
-.ledger__row:hover .ledger__stack {
-  color: var(--paper);
-}
-
-.ledger__status {
+.work__toggle {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  font-variant-numeric: tabular-nums;
+  gap: 12px;
+  background: none;
+  border: 0;
+  border-radius: 0;
+  padding: 4px;
+  margin: -4px;
+  font: inherit;
+  color: var(--ink);
+  cursor: pointer;
+  text-align: left;
+  min-height: 44px;
 }
 
-.ledger__status-square {
-  width: 0.625rem;
-  height: 0.625rem;
-  background: var(--red-500);
+.work__toggle:hover .work__name {
+  color: var(--rs-400);
+}
+
+.work__toggle:focus-visible {
+  box-shadow: 0 0 0 2px var(--rs-500);
+  outline: none;
+}
+
+.work__chev {
+  font-family: var(--font-mono);
+  font-size: 1.125rem;
+  color: var(--ink-faint);
+}
+
+.work__folio {
+  font-family: var(--font-mono);
+  font-size: 1.125rem;
+  color: var(--ink-faint);
   flex: none;
 }
 
-.ledger__afford {
-  text-align: right;
-  color: var(--ink-2);
+.work__desc {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--ink);
+  margin: 0 0 16px;
+  max-width: 65ch;
+  text-wrap: pretty;
 }
 
-.ledger__row:hover .ledger__afford {
-  color: var(--paper);
-}
-
-/* Folio expansion panel: real screenshot, caption, repo link. */
-.ledger__panel {
-  padding: 0 1rem 2rem;
-  border-top: var(--rule);
-}
-
-.ledger__figure {
-  margin: 0;
-  padding-top: 1.5rem;
-}
-
-.ledger__screenshot {
-  border: var(--rule);
-  width: 100%;
-}
-
-.ledger__caption {
-  margin-top: 0.75rem;
-  color: var(--ink-2);
-}
-
-.ledger__repo {
-  margin-top: 1rem;
+.work__tags {
+  list-style: none;
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem 1.5rem;
+  gap: 8px;
+  margin: 0 0 16px;
+  padding: 0;
+}
+
+.work__tags li {
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  line-height: 1.4;
+  color: var(--ink-muted);
+  border: 1px solid var(--hairline);
+  border-radius: 0;
+  padding: 4px 8px;
+}
+
+.work__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.work__meta {
+  font-family: var(--font-mono);
+  font-size: 1.125rem;
+  line-height: 1.4;
+  color: var(--ink-faint);
+  margin: 0;
+  transition: color 300ms var(--ease-out);
+}
+
+.work__row--powered .work__meta {
+  color: var(--rs-400);
+}
+
+.work__cells {
+  display: inline-flex;
+  gap: 4px;
+}
+
+.work__detail {
+  margin-top: 16px;
+  border-top: 1px solid var(--hairline);
+  padding-top: 16px;
+}
+
+.work__dl {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.work__dl > div {
+  display: flex;
+  gap: 16px;
   align-items: baseline;
-  font-size: var(--text-sm);
 }
 
-.ledger__repo-tag {
-  color: var(--ink-2);
+.work__dl dt {
+  font-family: var(--font-mono);
+  font-size: 1.125rem;
+  color: var(--ink-faint);
+  flex: none;
+  width: 72px;
 }
 
-/* ------------------------------------------------------------------
-   Mobile (<640px): stacked ledger blocks. Oversized red folio
-   numeral above each name; meta as mono lines beneath. Never any
-   horizontal scroll.
-   ------------------------------------------------------------------ */
+.work__dl dd {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--ink);
+  margin: 0;
+}
 
-@media (max-width: 639px) {
-  .ledger__head {
+.work__dl a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+
+.work__dl a:hover {
+  color: var(--rs-400);
+}
+
+.work__dl a:focus-visible {
+  box-shadow: 0 0 0 2px var(--rs-500);
+  outline: none;
+}
+
+.work__note {
+  font-family: var(--font-mono);
+  font-size: 1.125rem;
+  color: var(--ink-faint);
+  margin: 8px 0 0;
+}
+
+@media (max-width: 768px) {
+  .work__rail,
+  .work__junction,
+  .work__branch {
     display: none;
   }
 
-  .ledger__row {
+  .work__row {
+    flex-direction: column;
+    align-items: stretch;
+    padding-left: 0;
+    gap: 16px;
+  }
+
+  .work__branch-m {
     display: block;
-    padding: 1.5rem 0;
+    width: 96px;
+    height: 8px;
   }
 
-  .ledger__folio {
+  .work__branch-m svg {
     display: block;
-    font-size: var(--text-folio);
-    line-height: 0.9;
-    letter-spacing: -0.04em;
-    color: var(--red-500); /* display-size numeral: the accent */
-    margin-bottom: 0.75rem;
+    width: 100%;
+    height: 100%;
   }
 
-  .ledger__row:hover .ledger__folio {
-    color: var(--red-500);
+  .work__nodewrap {
+    margin-right: 0;
   }
 
-  .ledger__name {
-    display: block;
-    font-size: var(--text-2xl);
-    margin-bottom: 0.5rem;
+  .work__nodes {
+    gap: 32px;
   }
+}
 
-  .ledger__desc {
-    display: block;
-    margin-bottom: 1rem;
-    max-width: 38ch;
-  }
-
-  .ledger__stack,
-  .ledger__statuscell,
-  .ledger__afford {
-    display: block;
-    text-align: left;
-    margin-bottom: 0.25rem;
-  }
-
-  .ledger__afford {
-    color: var(--red-600);
-    text-decoration: underline;
-    text-underline-offset: 4px;
-  }
-
-  .ledger__panel {
-    padding: 0 0 2rem;
+@media (prefers-reduced-motion: reduce) {
+  .work__junction,
+  .work__card,
+  .work__meta {
+    transition: none;
   }
 }
