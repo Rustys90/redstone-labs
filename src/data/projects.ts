@@ -1,66 +1,84 @@
 /* ------------------------------------------------------------------
-   Redstone Labs — project ledger data.
-   Every entry is a real shipped project; descriptions use plain
-   verbs and are kept generic-but-true where the facts are not
-   pinned down. No invented details.
+   Redstone Labs — project index data (voxel round 3).
+   Every entry is a real shipped project. Descriptions are plain
+   verbs; meta (stack, license, status) is real and checkable.
+   No invented versions, metrics, or testimonials.
    ------------------------------------------------------------------ */
 
 export interface Project {
-  /** Folio number, e.g. "001". Rendered as a red oversized numeral. */
+  /** Folio number, e.g. "001". */
   folio: string;
+  /** Schematic block ID, e.g. "RS-001". */
+  id: string;
   name: string;
   /** One plain-verb sentence of what it is. */
   description: string;
-  /** Stack as shown in the ledger; kept sparse where unconfirmed. */
-  stack: string;
-  /** Ledger status: shipped, live, or internal. */
-  status: "shipped" | "live" | "internal";
-  /** Where the row links. */
+  /** Stack tags, shown as chips. */
+  stack: string[];
+  /** Only when the license is known for certain. */
+  license?: string;
+  /** Real shipping state. */
+  status: "shipped" | "live";
+  /** Redstone power level: shipped = 15 (all cells lit), live = 12. */
+  power: 15 | 12;
+  /** Where the detail row links. */
   link: string;
-  /** Only the flagship expands inline with a real screenshot. */
-  expandable?: boolean;
+  /** Human-readable link text. */
+  linkLabel: string;
+  /** Extra honest note shown in the detail row, when needed. */
+  note?: string;
 }
 
 export const projects: Project[] = [
   {
     folio: "001",
+    id: "RS-001",
     name: "Folio",
-    description: "An open-source alternative to Notion with a block editor, databases, and realtime collaboration.",
-    stack: "TypeScript, React, TipTap, Yjs, Tauri",
+    description:
+      "An open-source Notion alternative with a block editor, databases, and realtime collaboration.",
+    stack: ["TypeScript", "React", "TipTap", "Yjs", "Tauri"],
+    license: "MIT",
     status: "shipped",
+    power: 15,
     link: "https://github.com/Rustys90/folio",
-    expandable: true,
+    linkLabel: "github.com/Rustys90/folio",
+    note: "Flagship. Open source — the repo is the proof.",
   },
   {
     folio: "002",
+    id: "RS-002",
     name: "SkillForge",
-    description: "A registry that indexes, scans, and installs AI agent skills from public GitHub.",
-    stack: "Next.js, Postgres, Vercel",
+    description:
+      "A registry that indexes, scans, and installs AI agent skills from public GitHub.",
+    stack: ["Next.js", "Postgres", "Vercel"],
     status: "live",
+    power: 12,
     link: "https://skillforge-jet-chi.vercel.app",
+    linkLabel: "skillforge-jet-chi.vercel.app",
   },
   {
     folio: "003",
+    id: "RS-003",
     name: "Flylio",
-    description: "A flight search and booking interface that explores a simpler way to book travel.",
-    stack: "Duffel",
+    description:
+      "A flight search and booking interface exploring a simpler way to book travel.",
+    stack: ["Duffel API"],
     status: "live",
+    power: 12,
     link: "https://flylio.netlify.app",
+    linkLabel: "flylio.netlify.app",
   },
   {
     folio: "004",
+    id: "RS-004",
     name: "Mock-GPS apps",
-    description: "Region-locked mock-location tools for Android that teleport only inside selected island regions.",
-    stack: "Android, Kotlin",
+    description:
+      "Region-locked Android apps that teleport mock location only inside selected island regions.",
+    stack: ["Kotlin", "Android"],
     status: "shipped",
+    power: 15,
     link: "https://github.com/Rustys90",
-  },
-  {
-    folio: "005",
-    name: "Travel platforms and wallet simulators",
-    description: "Web apps and simulators built to prototype travel and wallet flows.",
-    stack: "Web",
-    status: "internal",
-    link: "https://github.com/Rustys90",
+    linkLabel: "github.com/Rustys90",
+    note: "Shipped as signed APKs; source lives on the studio profile.",
   },
 ];
