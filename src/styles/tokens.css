@@ -1,152 +1,127 @@
 /* ------------------------------------------------------------------
    Redstone Labs — design tokens
-   THE canonical token file. All workers use these values verbatim.
+   Committed direction §8. One theme: warm paper. No gradients.
+   Fonts are self-hosted from the Fontsource npm packages
+   (@fontsource-variable/archivo, @fontsource/jetbrains-mono),
+   latin subset, font-display: swap.
    ------------------------------------------------------------------ */
 
+/* Archivo variable (wght 100-900, wdth 62%-125%), latin subset */
+@font-face {
+  font-family: "Archivo";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  font-stretch: 62% 125%;
+  src: url("/fonts/archivo-latin-var.woff2") format("woff2-variations");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* Fallback metrics so the swap does not shift layout */
+@font-face {
+  font-family: "Archivo Fallback";
+  font-style: normal;
+  font-weight: 100 900;
+  src: local("Arial");
+  size-adjust: 97.5%;
+}
+
+/* JetBrains Mono, latin subset */
+@font-face {
+  font-family: "JetBrains Mono";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url("/fonts/jetbrains-mono-latin-400.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 500;
+  src: url("/fonts/jetbrains-mono-latin-500.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 700;
+  src: url("/fonts/jetbrains-mono-latin-700.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 :root {
-  /* Surfaces */
-  --void: #05070f; /* page background */
-  --abyss: #0a0f1e; /* section alt background */
-  --panel: #101828; /* card surface */
+  /* Accent ramp: redstone red, hue 27. Accent spent only at 500/600. */
+  --red-50: #fbebe9;
+  --red-50: oklch(0.97 0.02 27);
+  --red-100: #f6d7d2;
+  --red-100: oklch(0.93 0.04 27);
+  --red-200: #efa9a0;
+  --red-200: oklch(0.86 0.08 27);
+  --red-300: #e4776a;
+  --red-300: oklch(0.76 0.13 27);
+  --red-400: #d64a3a;
+  --red-400: oklch(0.65 0.19 27);
+  --red-500: #d92b21;
+  --red-500: oklch(0.55 0.22 27); /* THE accent */
+  --red-600: #b02318;
+  --red-600: oklch(0.46 0.2 27); /* red that carries small text */
+  --red-700: #8c1d13;
+  --red-700: oklch(0.37 0.16 27);
+  --red-800: #661510;
+  --red-800: oklch(0.28 0.12 27);
+  --red-900: #47100d;
+  --red-900: oklch(0.21 0.08 27);
+  --red-950: #2e0b09;
+  --red-950: oklch(0.15 0.04 27);
 
-  /* Hairlines */
-  --line: rgba(148, 163, 184, 0.16); /* hairline borders */
+  /* Surfaces: warm-tinted paper, never pure gray. ONE theme for the page. */
+  --paper: #fbfaf7;
+  --paper: oklch(0.985 0.006 100);
+  --paper-2: #f4f1ea;
+  --paper-2: oklch(0.96 0.008 100);
+  --ink: #23211d;
+  --ink: oklch(0.17 0.008 100);
+  --ink-2: #6e6a61;
+  --ink-2: oklch(0.44 0.012 100);
+  --hairline: #ddd8cc;
+  --hairline: oklch(0.87 0.01 100);
 
-  /* Text — contrast on --void: ~17:1 (ink), ~7.2:1 (ink-dim) */
-  --ink: #f2f5fa; /* primary text */
-  --ink-dim: #a8b3c7; /* secondary text */
+  /* Inversion pair for ledger hover */
+  --invert-bg: var(--ink);
+  --invert-fg: var(--paper);
 
-  /* Accents */
-  --volt: #8b7cff; /* electric violet — primary accent */
-  --pulse: #3ee0ff; /* electric cyan — secondary accent */
-  --ember: #ffb224; /* warm highlight, sparing use only */
-  --success: #34d399;
-
-  /* Type (Google Fonts, OFL licensed) */
-  --font-display: "Space Grotesk", "Inter", system-ui, -apple-system,
-    sans-serif;
-  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  /* Type */
+  --font-display: "Archivo", "Archivo Fallback", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --text-xs: 0.75rem; /* 12px captions, metadata */
+  --text-sm: 0.875rem; /* 14px secondary UI */
+  --text-base: 1rem; /* 16px body */
+  --text-lg: 1.25rem; /* 20px lead */
+  --text-xl: 1.5625rem; /* 25px H4 */
+  --text-2xl: 1.9375rem; /* 31px H3 */
+  --text-3xl: 2.4375rem; /* 39px H2 */
+  --text-4xl: 3.0625rem; /* 49px H1 */
+  --text-hero: clamp(3.5rem, 9vw, 8rem);
+  --text-folio: clamp(4rem, 10vw, 9rem); /* oversized index numerals */
 
-  /* Layout */
-  --max-width: 72rem;
-  --gutter: clamp(1.25rem, 4vw, 2.5rem);
-  --header-height: 4.25rem;
-  --radius: 0.875rem;
-}
-
-/* ------------------------------------------------------------------ */
-/* Base                                                                */
-/* ------------------------------------------------------------------ */
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  margin: 0;
-  background: var(--void);
-  color: var(--ink);
-  font-family: var(--font-body);
-  font-size: 1rem;
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-  overflow-x: hidden;
-}
-
-h1,
-h2,
-h3,
-h4 {
-  font-family: var(--font-display);
-  line-height: 1.12;
-  letter-spacing: -0.015em;
-  margin: 0 0 0.75rem;
-}
-
-p {
-  margin: 0 0 1rem;
-}
-
-a {
-  color: var(--pulse);
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
-}
-
-img,
-svg,
-canvas {
-  display: block;
-  max-width: 100%;
-}
-
-::selection {
-  background: rgba(139, 124, 255, 0.35);
-  color: var(--ink);
-}
-
-/* ------------------------------------------------------------------ */
-/* Focus — 2px --pulse outline, always visible on keyboard nav         */
-/* ------------------------------------------------------------------ */
-
-:focus {
-  outline: none;
-}
-
-:focus-visible {
-  outline: 2px solid var(--pulse);
-  outline-offset: 3px;
-  border-radius: 2px;
-}
-
-/* ------------------------------------------------------------------ */
-/* Skip link — the first tab stop on every page                        */
-/* ------------------------------------------------------------------ */
-
-.skip-link {
-  position: absolute;
-  top: -100px;
-  left: 1rem;
-  z-index: 200;
-  padding: 0.625rem 1rem;
-  background: var(--panel);
-  color: var(--ink);
-  border: 1px solid var(--line);
-  border-radius: 0.5rem;
-  font-weight: 600;
-  transition: top 0.15s ease;
-}
-
-.skip-link:focus-visible {
-  top: 0.75rem;
-  text-decoration: none;
-}
-
-/* ------------------------------------------------------------------ */
-/* Reduced motion — global kill switch                                 */
-/* ------------------------------------------------------------------ */
-
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
+  /* Geometry: the grid is the design */
+  --radius: 0;
+  --rule: 1px solid var(--hairline);
+  --rule-red: 2px solid var(--red-500);
+  --section-pad: clamp(4rem, 10vw, 8rem);
+  --gutter: clamp(1rem, 4vw, 3rem);
+  --measure: 65ch;
 }
