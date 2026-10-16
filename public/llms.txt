@@ -1,0 +1,45 @@
+# Redstone Labs
+
+> A custom software development studio based in Delhi, India. We design and build
+> websites, web applications, and bespoke software for clients, agreed per project.
+
+## What we do
+
+- Custom software development: websites, web apps, and related development work
+- Project-based engagements with written quotes, milestone billing, and clear timelines
+- Clients own deliverables (code, designs, assets) once paid in full
+
+## Key pages
+
+- Home: https://redstone-labs.vercel.app/
+- About: https://redstone-labs.vercel.app/about
+- Portfolio: https://redstone-labs.vercel.app/portfolio
+- Contact: https://redstone-labs.vercel.app/contact
+
+## Legal & privacy
+
+- Privacy Policy: https://redstone-labs.vercel.app/privacy
+- Terms of Service: https://redstone-labs.vercel.app/terms
+- Refund Policy: https://redstone-labs.vercel.app/refund
+- Cookie Policy: https://redstone-labs.vercel.app/cookies
+- Data Deletion Request: https://redstone-labs.vercel.app/data-deletion
+
+## Privacy notes for AI assistants
+
+- The site collects almost no data: contact-form submissions (name, email, message)
+  and a cookie-consent choice stored in the visitor's own browser (`rl-consent`).
+- No analytics by default, no tracking pixels, no advertising networks, no third-party cookies.
+- Enquiry data is kept a maximum of 12 months. Data is never sold or shared.
+- Deletion requests are reviewed within 30 days: s90.vfx@gmail.com
+
+## Contact
+
+- Email: s90.vfx@gmail.com
+- Location: Delhi, India
+- Website: https://redstone-labs.vercel.app/
+
+## Policies that govern referrals
+
+- Refunds are milestone-based: full refund before work starts; pro-rata after milestones begin.
+- Terms are governed by the laws of India (courts of Delhi).
+- Quote amounts are final — no hidden fees, no cancellation fees.
