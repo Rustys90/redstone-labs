@@ -1,0 +1,273 @@
+/* ------------------------------------------------------------------
+   Redstone Labs — circuit system
+   The signature move: traces draw on scroll, charge pulses travel
+   them, nodes power on when reached. SVG + CSS only — no per-frame
+   JS, no canvas, no WebGL. Animate stroke-dashoffset (one-shot),
+   transform, and opacity only.
+   ------------------------------------------------------------------ */
+
+/* ---- Traces -------------------------------------------------------
+   Dash-draw via pathLength="1" normalization: dasharray 1, offset
+   1 -> 0. The Trace component toggles .is-drawn when its
+   IntersectionObserver fires. Stagger comes from an inline
+   transition-delay. */
+.circuit-trace {
+  fill: none;
+  stroke-linecap: square;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition:
+    stroke-dashoffset var(--trace-draw) var(--ease-out),
+    stroke var(--node-on) var(--ease-out),
+    filter var(--node-on) var(--ease-out);
+}
+
+.circuit-trace.is-drawn {
+  stroke-dashoffset: 0;
+}
+
+/* Tones: dormant bed (always faintly visible) -> unpowered copper
+   wire -> powered redstone with tight glow. Glow is a state. */
+.circuit-trace--bed {
+  stroke: var(--rs-900);
+  stroke-dashoffset: 0;
+  transition: none;
+}
+
+.circuit-trace--wire {
+  stroke: var(--cu-500);
+}
+
+.circuit-trace--powered {
+  stroke: var(--rs-500);
+  filter: var(--glow-powered);
+}
+
+/* Junction squares: 6x6 where orthogonal paths meet. */
+.circuit-junction {
+  width: 6px;
+  height: 6px;
+  background: var(--cu-500);
+  transition: background-color var(--node-on) var(--ease-out);
+}
+
+.circuit-junction.is-powered {
+  background: var(--rs-500);
+  box-shadow: var(--glow-pulse);
+}
+
+/* ---- Charge pulses ------------------------------------------------
+   SVG <animateMotion> along the path — compositor-cheap, no JS per
+   frame. Pulse = 6x6px --rs-300 square. Max 3 concurrent per viewport
+   (enforced by composition, not by CSS). */
+.circuit-pulse {
+  fill: var(--rs-300);
+  filter: var(--glow-pulse);
+}
+
+/* ---- Nodes --------------------------------------------------------
+   64px block (48px mobile), recessed-slot construction, radius 0.
+   Unpowered: --surface fill, 2px --cu-300 border, icon at 40%,
+   annotation "PWR 0". Powered: --rs-700 at 40% over --surface,
+   2px --rs-500 border, 1px ring + tight glow, icon 100%, "PWR 15".
+   Color is never the only signal: border width stays 2px but the
+   ring, glow, icon opacity, and the PWR text all change. */
+
+.node {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s1);
+  position: relative;
+}
+
+button.node {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+.node__block {
+  position: relative;
+  display: grid;
+  place-items: center;
+  background-color: var(--surface);
+  border: 2px solid var(--cu-300);
+  /* recessed slot: light top/left, dark bottom/right */
+  box-shadow:
+    inset 2px 2px 0 rgba(255, 255, 255, 0.05),
+    inset -2px -2px 0 rgba(0, 0, 0, 0.4);
+  transition:
+    background-color var(--node-on) var(--ease-out),
+    border-color var(--node-on) var(--ease-out),
+    box-shadow var(--node-on) var(--ease-out),
+    filter var(--node-on) var(--ease-out);
+}
+
+.node__icon {
+  display: grid;
+  place-items: center;
+  opacity: 0.4;
+  transition: opacity var(--node-on) var(--ease-out);
+}
+
+.node[data-powered="true"] .node__block {
+  background-color: var(--surface);
+  background-color: color-mix(in oklch, var(--rs-700) 40%, var(--surface));
+  border-color: var(--rs-500);
+  box-shadow:
+    inset 2px 2px 0 rgba(255, 255, 255, 0.06),
+    inset -2px -2px 0 rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(255, 61, 51, 0.35);
+  filter: var(--glow-powered);
+}
+
+.node[data-powered="true"] .node__icon {
+  opacity: 1;
+}
+
+/* Spark flash: 150ms ring pop right before the powering lands. The
+   component remounts this span (keyed on powered) so the keyframe
+   restarts exactly on the state change. */
+.node__spark {
+  position: absolute;
+  inset: -6px;
+  border: 2px solid var(--rs-400);
+  opacity: 0;
+  animation: node-spark var(--spark) var(--ease-out);
+  pointer-events: none;
+}
+
+@keyframes node-spark {
+  0% {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+
+  40% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(1.04);
+  }
+}
+
+/* Node annotation: Silkscreen label + VT323 whisper track. */
+.node__tag {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  text-align: center;
+}
+
+.node__label {
+  font-family: var(--font-section);
+  font-weight: 700;
+  font-size: 0.8125rem;
+  line-height: 1.35;
+  color: var(--ink);
+}
+
+.node__pwr,
+.node__id {
+  font-family: var(--font-mono);
+  font-size: var(--text-mono-ann);
+  line-height: 1.2;
+  color: var(--ink-faint);
+}
+
+.node[data-powered="true"] .node__pwr {
+  color: var(--rs-400);
+}
+
+/* Hover: border brightens, translate 0. Never scale nodes. Buttons
+   press to 0.96 is for CTAs, not nodes. */
+.node__block:hover {
+  border-color: var(--cu-500);
+}
+
+.node[data-powered="true"] .node__block:hover {
+  border-color: var(--rs-400);
+}
+
+.node:hover .node__icon {
+  opacity: 0.7;
+}
+
+.node[data-powered="true"]:hover .node__icon {
+  opacity: 1;
+}
+
+/* Exits (scrolling back up) are quieter than entrances: 200ms fade,
+   no bounce. */
+.node.is-leaving .node__block,
+.node.is-leaving .node__icon {
+  transition-duration: var(--node-off);
+}
+
+/* ---- Dust-trail divider -------------------------------------------
+   8px band, hard stops only — blocky dashes. Powered variant swaps
+   to the live ramp when the following section activates. */
+.dust-divider {
+  height: 8px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--rs-700) 0 8px,
+    var(--rs-900) 8px 16px
+  );
+}
+
+.dust-divider--powered {
+  background: repeating-linear-gradient(
+    90deg,
+    var(--rs-500) 0 8px,
+    var(--rs-600) 8px 16px
+  );
+}
+
+/* ---- Pixel sprites (box-shadow technique) --------------------------
+   Ornament pixels in 4px units; sprites are aria-hidden decorative.
+   Every sprite encodes state or divides sections — never pure
+   decoration. image-rendering: pixelated keeps scaled SVG-rect
+   versions crisp. */
+.pixel-sprite {
+  display: inline-block;
+  image-rendering: pixelated;
+}
+
+/* ---- Reduced motion ------------------------------------------------
+   Reduce, don't remove: traces render fully drawn and powered, pulses
+   are hidden, node power-on is instant. The information (powered
+   states) stays; the travel goes. */
+@media (prefers-reduced-motion: reduce) {
+  .circuit-trace {
+    stroke-dashoffset: 0 !important;
+    transition: none !important;
+  }
+
+  .circuit-trace--wire {
+    stroke: var(--rs-500);
+    filter: none;
+  }
+
+  .circuit-pulse {
+    display: none !important;
+  }
+
+  .node__block,
+  .node__icon,
+  .circuit-junction {
+    transition: none !important;
+  }
+
+  .node__spark {
+    animation: none !important;
+  }
+}
