@@ -1,0 +1,18 @@
+/* Placeholder page — temporary, replaced by real pages. */
+
+.placeholder-page {
+  padding: clamp(5rem, 12vw, 9rem) 0;
+  min-height: 60vh;
+}
+
+.placeholder-page h1 {
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  margin-bottom: 1rem;
+}
+
+.placeholder-note {
+  color: var(--ink-dim);
+  font-size: 1.0625rem;
+  max-width: 52ch;
+  margin-bottom: 2rem;
+}
