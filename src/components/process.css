@@ -1,62 +1,151 @@
-/* ------------------------------------------------------------------
-   Process (§03): numbered spec list. Hairlines between rows, red
-   mono numbers, right-aligned mono notes.
-   ------------------------------------------------------------------ */
+/* Process: 4 numbered stations on one horizontal trace. */
 
-.process__list {
-  border-top: var(--rule-red);
+.process {
+  padding: 96px 0 0;
 }
 
-.process__row {
+.process__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.process__track {
+  position: relative;
+  margin-bottom: 96px;
+}
+
+/* The wire: absolute 8px band; junctions sit centered on it. */
+.process__wire {
+  position: absolute;
+  top: 1px;
+  left: 0;
+  right: 0;
+  height: 8px;
+}
+
+.process__wire svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.process__stations {
+  list-style: none;
+  margin: 0;
+  padding: 0;
   display: grid;
-  grid-template-columns: 4rem minmax(0, 1fr) minmax(0, 14rem);
-  gap: 1.5rem;
-  align-items: baseline;
-  padding: 1.75rem 0;
-  border-bottom: var(--rule);
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+}
+
+.process__station {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  min-width: 0;
+}
+
+.process__branch-m {
+  display: none;
+}
+
+.process__junction {
+  width: 6px;
+  height: 6px;
+  margin: 1px 0 24px;
+  background: var(--cu-500);
+  flex: none;
+  transition: background-color 200ms var(--ease-out);
+}
+
+.process__station--powered .process__junction {
+  background: var(--rs-500);
 }
 
 .process__num {
-  font-family: var(--font-mono);
+  font-family: var(--font-section);
   font-weight: 700;
-  font-size: var(--text-xl);
-  color: var(--red-600); /* small-text red for the numerals */
-  font-variant-numeric: tabular-nums;
-  letter-spacing: -0.02em;
+  font-size: 1.5rem;
+  line-height: 1.3;
+  color: var(--cu-300);
+  margin-bottom: 8px;
+  transition: color 300ms var(--ease-out);
 }
 
-.process__title {
-  font-size: var(--text-xl);
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  line-height: 1.15;
-  margin-bottom: 0.5rem;
+.process__station--powered .process__num {
+  color: var(--rs-500);
+}
+
+.process__name {
+  font-family: var(--font-section);
+  font-weight: 700;
+  font-size: 1.25rem;
+  line-height: 1.35;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin: 0 0 12px;
 }
 
 .process__text {
-  color: var(--ink-2);
-  max-width: var(--measure);
-  line-height: 1.6;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--ink-muted);
+  margin: 0;
+  max-width: 32ch;
+  text-wrap: pretty;
 }
 
-.process__note {
-  text-align: right;
-  color: var(--ink-2);
+.process__step {
+  font-family: var(--font-mono);
+  font-size: 1.125rem;
+  line-height: 1.4;
+  color: var(--ink-faint);
+  margin-top: 16px;
 }
 
-@media (max-width: 639px) {
-  .process__row {
-    grid-template-columns: 3rem minmax(0, 1fr);
-    gap: 1rem;
+@media (max-width: 768px) {
+  .process__wire {
+    display: none;
   }
 
-  .process__note {
-    grid-column: 2;
+  .process__stations {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .process__station {
+    align-items: flex-start;
     text-align: left;
-    margin-top: 0.25rem;
   }
 
-  .process__title {
-    font-size: var(--text-lg);
+  .process__junction {
+    display: none;
+  }
+
+  .process__branch-m {
+    display: block;
+    width: 96px;
+    height: 8px;
+    margin-bottom: 16px;
+  }
+
+  .process__branch-m svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .process__text {
+    max-width: 65ch;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .process__junction,
+  .process__num {
+    transition: none;
   }
 }
