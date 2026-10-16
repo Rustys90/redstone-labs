@@ -1,0 +1,152 @@
+/* ------------------------------------------------------------------
+   Hero — broadsheet masthead plus the rotating shipping manifest.
+   Fits the viewport. Four text elements. Left aligned.
+   ------------------------------------------------------------------ */
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100svh - 2.75rem); /* viewport minus the top strip */
+  padding: var(--gutter);
+  padding-top: clamp(2rem, 6vw, 4rem);
+  background: var(--paper);
+}
+
+.hero__masthead {
+  font-size: var(--text-hero);
+  font-weight: 900;
+  font-stretch: 125%; /* Archivo Expanded Black */
+  letter-spacing: -0.03em;
+  line-height: 0.9;
+  text-transform: uppercase; /* studio logotype, per committed direction §6 */
+}
+
+.hero__stop {
+  color: var(--red-500); /* spend (a): the full stop after the masthead */
+}
+
+.hero__lede {
+  margin-top: clamp(1.5rem, 4vw, 2.5rem);
+  font-size: var(--text-lg);
+  line-height: 1.5;
+  max-width: 41.667%; /* statement at 5/12 */
+  color: var(--ink);
+}
+
+.hero__foot {
+  margin-top: auto;
+  padding-top: clamp(2rem, 6vw, 4rem);
+}
+
+.hero__rule {
+  border-top: var(--rule-red);
+}
+
+/* The manifest row: the only auto-motion on the page.
+   Crossfade is a 200ms fade-in on row swap, every 6s. */
+.manifest {
+  display: block;
+  padding: 1rem 0;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: var(--rule);
+}
+
+.manifest:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+
+.manifest__inner {
+  display: block;
+  animation: manifest-in 200ms ease-out;
+}
+
+@keyframes manifest-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.manifest__primary,
+.manifest__secondary {
+  display: inline;
+}
+
+.manifest__folio {
+  font-weight: 700;
+  color: var(--red-600); /* spend (b): folio numerals, small-text red */
+  font-variant-numeric: tabular-nums;
+}
+
+.manifest__name {
+  font-weight: 500;
+}
+
+.manifest__dot {
+  padding: 0 0.5em;
+  color: var(--ink-2);
+}
+
+.manifest__status {
+  white-space: nowrap;
+}
+
+.manifest__square {
+  display: inline-block;
+  width: 0.55em;
+  height: 0.55em;
+  margin-right: 0.5em;
+  background: var(--red-500); /* spend (c): the shipped status square */
+}
+
+/* Mobile: the manifest becomes a full-bleed tappable stacked bar. */
+@media (max-width: 479px) {
+  /* Deviation note: --text-hero's 3.5rem minimum sets "REDSTONE" at ~400px
+     in the Expanded Black cut, wider than the 358px content column at
+     390px. Capped at 12vw so the longest word fits on one line. */
+  .hero__masthead {
+    font-size: min(12vw, 3rem);
+  }
+
+  .hero__lede {
+    max-width: none;
+  }
+
+  .manifest {
+    margin-inline: calc(var(--gutter) * -1);
+    padding: 1rem var(--gutter);
+    border-top: var(--rule);
+    min-height: 3rem;
+    display: flex;
+    align-items: center;
+  }
+
+  .manifest__inner {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+
+  .manifest__primary,
+  .manifest__secondary {
+    display: block;
+  }
+
+  /* On the stacked bar the secondary line leads without a dot. */
+  .manifest__secondary .manifest__dot:first-child {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .manifest__inner {
+    animation: none;
+  }
+}
