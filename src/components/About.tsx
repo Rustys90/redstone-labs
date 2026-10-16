@@ -1,64 +1,47 @@
-import Section from "./Section";
+import { DustDivider } from "./TraceSystem";
+import SectionHead from "./SectionHead";
 import "./about.css";
 
-/* About (§02): meta-column layout. 200px mono meta column plus a
-   1fr statement column at 65ch with three numbered principles. */
+/* About (§02): the WORLD STATS panel. Game stat-screen language,
+   real contents only: base, mode, scope, stack. Recessed-slot tiles
+   with VT323 readouts, plus one plain Inter paragraph in Stark's
+   voice. No invented clients, awards, or metrics. */
 
-const principles = [
-  {
-    n: "01",
-    text: "Ship working software, not slide decks. Every claim on this page links to a repo, a license, or a live build.",
-  },
-  {
-    n: "02",
-    text: "Build in the open. Progress lives in a shared repo with working builds, so there is always something real to point at.",
-  },
-  {
-    n: "03",
-    text: "Hand over everything. The code, the docs, and the deployment land in the client's hands, ready to run.",
-  },
+const stats = [
+  { key: "Base", value: "New Delhi, IN", sub: "28.6139°N 77.2090°E" },
+  { key: "Mode", value: "Independent", sub: "one engineer, no handoffs" },
+  { key: "Scope", value: "Worldwide", sub: "remote-first, async-friendly" },
+  { key: "Stack", value: "TS · React · Kotlin", sub: "full-stack, web to Android" },
 ];
 
 export default function About() {
   return (
-    <Section id="about" index="02" title="About">
-      <div className="about__grid">
-        <dl className="about__meta meta">
-          <div className="about__meta-row">
-            <dt>Studio</dt>
-            <dd>Redstone Labs</dd>
-          </div>
-          <div className="about__meta-row">
-            <dt>Location</dt>
-            <dd>Delhi, India</dd>
-          </div>
-          <div className="about__meta-row">
-            <dt>Status</dt>
-            <dd>Independent</dd>
-          </div>
-          <div className="about__meta-row">
-            <dt>Est.</dt>
-            <dd>2025</dd>
-          </div>
-        </dl>
-        <div className="about__statement">
-          <p>
-            Redstone Labs is an independent software studio in Delhi, India, run by Stark. We design,
-            build, and ship real products: open-source tools, agent registries, Android apps, and
-            client work. This page is the shipping record; the ledger above is the proof.
-          </p>
-          <ol className="about__principles">
-            {principles.map((p) => (
-              <li key={p.n} className="about__principle">
-                <span className="about__principle-num" aria-hidden="true">
-                  {p.n}
-                </span>
-                <p>{p.text}</p>
-              </li>
-            ))}
-          </ol>
-        </div>
+    <section id="about" className="about" aria-labelledby="about-title">
+      <div className="about__inner">
+        <SectionHead
+          index="02"
+          title="World stats"
+          titleId="about-title"
+          flavor="READOUT — 28.6139°N 77.2090°E · CHUNK 0,0"
+        />
+        <ul className="about__tiles" aria-label="Studio stats">
+          {stats.map((s) => (
+            <li key={s.key} className="about__tile">
+              <span className="about__key">{s.key}</span>
+              <span className="about__value">{s.value}</span>
+              <span className="about__sub">{s.sub}</span>
+            </li>
+          ))}
+        </ul>
+        <p className="about__voice">
+          I&rsquo;m Ankush Chauhan. Redstone Labs is my independent studio — I design,
+          engineer, and ship software from New Delhi: open-source tools, agent
+          infrastructure, and Android apps. The person you talk to is the person
+          who builds it. The ledger above is the proof — everything there links
+          to a repo, a license, or a live build.
+        </p>
       </div>
-    </Section>
+      <DustDivider />
+    </section>
   );
 }
