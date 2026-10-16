@@ -1,58 +1,214 @@
 /* ------------------------------------------------------------------
-   TopStrip — mono 12px strip. Wordmark left, Delhi + live IST clock
-   center, Contact right. Below 480px: wordmark left, Contact right,
-   center drops.
+   TopStrip — fixed thin nav (52px). RS-rune + PS2P wordmark left,
+   hotbar-slot nav center, live IST clock + NIGHT/DAY toggle +
+   START PROJECT block button right. Mono annotations throughout.
    ------------------------------------------------------------------ */
 
 .top-strip {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  height: 52px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  padding: 0.75rem var(--gutter);
-  border-bottom: var(--rule);
-  background: var(--paper);
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  min-height: 2.75rem;
+  gap: var(--s3);
+  padding: 0 var(--gutter);
+  background: var(--bg);
+  background: color-mix(in oklch, var(--bg) 95%, transparent);
+  border-bottom: 2px solid var(--hairline);
+}
+
+/* Anchor targets clear the fixed strip. */
+main [id] {
+  scroll-margin-top: 64px;
+}
+
+.top-strip__brand {
+  display: flex;
+  align-items: center;
+  gap: var(--s1);
+  text-decoration: none;
+  flex: 0 0 auto;
 }
 
 .top-strip__wordmark {
-  margin: 0;
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  line-height: 1;
+  color: var(--ink);
   white-space: nowrap;
 }
 
-.top-strip__center {
+/* Hotbar slots: recessed construction, 2px redstone outline active. */
+.top-strip__nav ul {
   display: flex;
-  align-items: baseline;
-  gap: 1.5rem;
-  margin: 0;
-  color: var(--ink-2);
-  white-space: nowrap;
+  gap: var(--s1);
+  align-items: center;
+}
+
+.top-strip__nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 6px 12px;
+  font-family: var(--font-section);
+  font-weight: 400;
+  font-size: var(--text-label);
+  line-height: var(--leading-label);
+  letter-spacing: var(--tracking-label);
+  color: var(--ink-muted);
+  text-decoration: none;
+  background: var(--surface-2);
+  box-shadow:
+    inset 2px 2px 0 rgba(255, 255, 255, 0.04),
+    inset -2px -2px 0 rgba(0, 0, 0, 0.35);
+  transition:
+    color var(--hover) var(--ease-out),
+    outline-color var(--hover) var(--ease-out);
+}
+
+.top-strip__nav a:hover {
+  color: var(--ink);
+}
+
+.top-strip__nav a[aria-current="true"] {
+  outline: 2px solid var(--rs-500);
+  color: var(--ink);
+}
+
+.top-strip__nav a:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+.top-strip__meta {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  flex: 0 0 auto;
 }
 
 .top-strip__clock {
-  font-variant-numeric: tabular-nums;
+  font-family: var(--font-mono);
+  font-size: var(--text-mono-ann);
+  line-height: 1;
   color: var(--ink);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
 
-.top-strip__contact {
+.top-strip__toggle {
+  font-family: var(--font-mono);
+  font-size: var(--text-mono-ann);
+  line-height: 1;
+  color: var(--ink-muted);
+  background: transparent;
+  border: 2px solid var(--hairline);
+  border-radius: 0;
+  padding: 8px 10px;
+  min-height: 36px;
+  min-width: 44px;
+  cursor: pointer;
+  transition:
+    color var(--hover) var(--ease-out),
+    border-color var(--hover) var(--ease-out);
+}
+
+.top-strip__toggle:hover {
+  color: var(--ink);
+  border-color: var(--rs-500);
+}
+
+.top-strip__toggle[aria-pressed="true"] {
+  color: var(--rs-400);
+  border-color: var(--rs-500);
+}
+
+.top-strip__toggle:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+/* Block button, strip-sized: --rs-600 fill, stepped hard shadow,
+   presses to translateY(2px) with the shadow collapsing. */
+.top-strip__cta {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 8px 14px;
+  font-family: var(--font-section);
+  font-weight: 400;
+  font-size: 0.75rem;
+  line-height: 1;
+  letter-spacing: var(--tracking-label);
+  color: var(--ink);
+  background: var(--rs-600);
+  border: 2px solid var(--rs-600);
   text-decoration: none;
   white-space: nowrap;
-  color: var(--ink);
+  box-shadow: var(--press-shadow);
+  transition:
+    transform var(--hover) var(--ease-out),
+    box-shadow var(--hover) var(--ease-out),
+    background-color var(--hover) var(--ease-out),
+    border-color var(--hover) var(--ease-out);
 }
 
-.top-strip__contact:hover {
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 4px;
+.top-strip__cta:hover {
+  background: var(--rs-500);
+  border-color: var(--rs-500);
 }
 
-@media (max-width: 479px) {
-  .top-strip__center {
+.top-strip__cta:active {
+  transform: translateY(2px);
+  box-shadow: var(--press-shadow-collapsed);
+}
+
+.top-strip__cta:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+@media (max-width: 900px) {
+  .top-strip__nav {
     display: none;
+  }
+}
+
+@media (max-width: 560px) {
+  .top-strip {
+    gap: var(--s2);
+    padding: 0 var(--s2);
+  }
+
+  /* The clock hides, but the day/night toggle stays — the schematic layer
+     reveal is a core mechanic, available on every viewport. */
+  .top-strip__clock {
+    display: none;
+  }
+
+  .top-strip__toggle {
+    padding: 6px 8px;
+    min-height: 32px;
+    min-width: 40px;
+  }
+
+  .top-strip__wordmark {
+    font-size: 0.7rem;
+  }
+
+  .top-strip__cta {
+    padding: 8px 10px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .top-strip__nav a,
+  .top-strip__toggle,
+  .top-strip__cta {
+    transition: none;
   }
 }
