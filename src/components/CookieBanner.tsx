@@ -52,6 +52,19 @@ export default function CookieBanner() {
     return () => window.clearTimeout(timer);
   }, []);
 
+  // Re-open from the footer "Cookie settings" link.
+  useEffect(() => {
+    const reopen = () => {
+      const saved = readConsent();
+      setAnalytics(saved?.analytics ?? false);
+      setMarketing(saved?.marketing ?? false);
+      setCustomizing(true);
+      setVisible(true);
+    };
+    window.addEventListener("rl:open-cookies", reopen);
+    return () => window.removeEventListener("rl:open-cookies", reopen);
+  }, []);
+
   const save = (analyticsChoice: boolean, marketingChoice: boolean) => {
     writeConsent(analyticsChoice, marketingChoice);
     setVisible(false);
